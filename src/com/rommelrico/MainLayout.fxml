@@ -7,9 +7,9 @@
 <?import javafx.scene.web.WebView?>
 
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="618.0" prefWidth="867.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="618.0" prefWidth="867.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.rommelrico.MainController">
    <children>
-      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Button" />
+      <Button fx:id="button1" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#button1Action" text="Button" />
       <Button layoutX="99.0" layoutY="14.0" mnemonicParsing="false" text="Button" />
       <Button layoutX="196.0" layoutY="14.0" mnemonicParsing="false" text="Button" />
       <TreeView layoutX="14.0" layoutY="60.0" prefHeight="551.0" prefWidth="251.0" />
