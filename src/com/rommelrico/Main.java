@@ -13,6 +13,7 @@ public class Main extends Application {
         Pane pane = FXMLLoader.load(getClass().getResource("MainLayout.fxml"));
 
         Scene scene = new Scene(pane);
+        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(scene);
         primaryStage.show();
