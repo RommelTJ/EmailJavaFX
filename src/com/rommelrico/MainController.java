@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
 import javafx.scene.web.WebView;
 
 import java.net.URL;
@@ -17,6 +18,15 @@ public class MainController implements Initializable {
 
     @FXML
     private WebView messageRendererId;
+
+    @FXML
+    private TableColumn<?, ?> subjectCol;
+
+    @FXML
+    private TableColumn<?, ?> senderCol;
+
+    @FXML
+    private TableColumn<?, ?> sizeCol;
 
 
     @FXML
