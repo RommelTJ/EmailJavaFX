@@ -1,5 +1,7 @@
 package com.rommelrico;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,7 +15,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
-
 
     @FXML
     private Button button1;
@@ -33,11 +34,17 @@ public class MainController implements Initializable {
     @FXML
     private TableColumn<EmailMessageBean, Integer> sizeCol;
 
-
     @FXML
     void button1Action(ActionEvent event) {
         System.out.println("Pushed button1");
     }
+
+    final ObservableList<EmailMessageBean> data = FXCollections.observableArrayList(
+            new EmailMessageBean("Hello!", "me@rommelrico.com", 200),
+            new EmailMessageBean("Sample Email", "me@rommelrico.com", 23200),
+            new EmailMessageBean("Need to do stuff", "admin@purnkleen.com", 10),
+            new EmailMessageBean("Don't forget", "test@test.com", 200)
+    );
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
