@@ -10,7 +10,7 @@ public class EmailMessageBean {
     private SimpleStringProperty subject;
     private IntegerProperty size;
 
-    public EmailMessageBean(String sender, String subject, int size) {
+    public EmailMessageBean(String subject, String sender, int size) {
         this.sender = new SimpleStringProperty(sender);
         this.subject = new SimpleStringProperty(subject);
         this.size = new SimpleIntegerProperty(size);
