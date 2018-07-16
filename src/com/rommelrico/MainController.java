@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.web.WebView;
 
 import java.net.URL;
@@ -20,13 +21,16 @@ public class MainController implements Initializable {
     private WebView messageRendererId;
 
     @FXML
-    private TableColumn<?, ?> subjectCol;
+    private TableView<EmailMessageBean> emailTableView;
 
     @FXML
-    private TableColumn<?, ?> senderCol;
+    private TableColumn<EmailMessageBean, String> subjectCol;
 
     @FXML
-    private TableColumn<?, ?> sizeCol;
+    private TableColumn<EmailMessageBean, String> senderCol;
+
+    @FXML
+    private TableColumn<EmailMessageBean, Integer> sizeCol;
 
 
     @FXML
