@@ -32,7 +32,7 @@ public class MainController implements Initializable {
     private TableColumn<EmailMessageBean, String> senderCol;
 
     @FXML
-    private TableColumn<EmailMessageBean, Integer> sizeCol;
+    private TableColumn<EmailMessageBean, String> sizeCol;
 
     @FXML
     void button1Action(ActionEvent event) {
@@ -52,7 +52,7 @@ public class MainController implements Initializable {
 
         subjectCol.setCellValueFactory(new PropertyValueFactory<EmailMessageBean, String>("subject"));
         senderCol.setCellValueFactory(new PropertyValueFactory<EmailMessageBean, String>("sender"));
-        sizeCol.setCellValueFactory(new PropertyValueFactory<EmailMessageBean, Integer>("size"));
+        sizeCol.setCellValueFactory(new PropertyValueFactory<EmailMessageBean, String>("size"));
 
         emailTableView.setItems(data);
     }

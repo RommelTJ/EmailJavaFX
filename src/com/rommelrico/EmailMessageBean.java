@@ -8,12 +8,12 @@ public class EmailMessageBean {
 
     private SimpleStringProperty sender;
     private SimpleStringProperty subject;
-    private IntegerProperty size;
+    private SimpleStringProperty size;
 
-    public EmailMessageBean(String subject, String sender, int size) {
+    public EmailMessageBean(String subject, String sender, String size) {
         this.sender = new SimpleStringProperty(sender);
         this.subject = new SimpleStringProperty(subject);
-        this.size = new SimpleIntegerProperty(size);
+        this.size = new SimpleStringProperty(size);
     }
 
     public String getSender() {
@@ -32,11 +32,11 @@ public class EmailMessageBean {
         return subject;
     }
 
-    public int getSize() {
+    public String getSize() {
         return size.get();
     }
 
-    public IntegerProperty sizeProperty() {
+    public SimpleStringProperty sizeProperty() {
         return size;
     }
 }
