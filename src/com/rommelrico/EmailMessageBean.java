@@ -10,10 +10,10 @@ public class EmailMessageBean {
     private SimpleStringProperty subject;
     private SimpleStringProperty size;
 
-    public EmailMessageBean(String subject, String sender, String size) {
+    public EmailMessageBean(String subject, String sender, int size) {
         this.sender = new SimpleStringProperty(sender);
         this.subject = new SimpleStringProperty(subject);
-        this.size = new SimpleStringProperty(size);
+        this.size = new SimpleStringProperty(formatSize(size));
     }
 
     public String getSender() {
