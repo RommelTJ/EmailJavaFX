@@ -49,7 +49,7 @@ public class EmailMessageBean {
         if (size <= 0) {
             returnValue = "0";
         } else if (size < 1024) {
-            returnValue = size + "B";
+            returnValue = size + " B";
         } else if (size < 1048576) {
             returnValue = size/1024 + " kB";
         } else {
