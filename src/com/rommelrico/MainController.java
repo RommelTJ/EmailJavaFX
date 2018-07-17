@@ -12,6 +12,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.web.WebView;
 
 import java.net.URL;
+import java.util.Comparator;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
@@ -55,5 +56,18 @@ public class MainController implements Initializable {
         sizeCol.setCellValueFactory(new PropertyValueFactory<EmailMessageBean, String>("size"));
 
         emailTableView.setItems(data);
+
+        sizeCol.setComparator(new Comparator<String>() {
+
+            Integer int1;
+            Integer int2;
+
+            @Override
+            public int compare(String o1, String o2) {
+                int1 = EmailMessageBean.formattedValues.get(o1);
+                int2 = EmailMessageBean.formattedValues.get(o2);
+                return int1.compareTo(int2);
+            }
+        });
     }
 }

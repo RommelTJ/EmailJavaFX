@@ -11,7 +11,7 @@ public class EmailMessageBean {
     private SimpleStringProperty subject;
     private SimpleStringProperty size;
 
-    public Map<String, Integer> formattedValues = new HashMap<String, Integer>();
+    public static Map<String, Integer> formattedValues = new HashMap<String, Integer>();
 
     public EmailMessageBean(String subject, String sender, int size) {
         this.sender = new SimpleStringProperty(sender);
