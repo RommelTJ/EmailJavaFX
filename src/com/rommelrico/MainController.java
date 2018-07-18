@@ -78,13 +78,13 @@ public class MainController implements Initializable {
         emailFoldersTree.setRoot(root);
         root.setValue("example@rommelrico.com");
 
-        TreeItem<String> inbox = new TreeItem<String>("Inbox");
-        TreeItem<String> sent = new TreeItem<String>("Sent");
-        TreeItem<String> subItem1 = new TreeItem<String>("SubItem1");
-        TreeItem<String> subItem2 = new TreeItem<String>("SubItem2");
+        TreeItem<String> inbox = new TreeItem<String>("Inbox", resolveIcon("Inbox"));
+        TreeItem<String> sent = new TreeItem<String>("Sent", resolveIcon("Sent"));
+        TreeItem<String> subItem1 = new TreeItem<String>("SubItem1", resolveIcon("SubItem1"));
+        TreeItem<String> subItem2 = new TreeItem<String>("SubItem2", resolveIcon("SubItem2"));
         sent.getChildren().addAll(subItem1, subItem2);
-        TreeItem<String> spam = new TreeItem<String>("Spam");
-        TreeItem<String> trash = new TreeItem<String>("Trash");
+        TreeItem<String> spam = new TreeItem<String>("Spam", resolveIcon("Spam"));
+        TreeItem<String> trash = new TreeItem<String>("Trash", resolveIcon("Trash"));
 
         root.getChildren().addAll(inbox, sent, spam, trash);
         root.setExpanded(true);
