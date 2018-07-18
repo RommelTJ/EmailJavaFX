@@ -77,6 +77,7 @@ public class MainController implements Initializable {
 
         emailFoldersTree.setRoot(root);
         root.setValue("example@rommelrico.com");
+        root.setGraphic(resolveIcon(root.getValue()));
 
         TreeItem<String> inbox = new TreeItem<String>("Inbox", resolveIcon("Inbox"));
         TreeItem<String> sent = new TreeItem<String>("Sent", resolveIcon("Sent"));
@@ -96,7 +97,7 @@ public class MainController implements Initializable {
 
         try {
             if (lowerCaseTreeItemValue.contains("inbox")) {
-                returnIcon = new ImageView(new Image(getClass().getResourceAsStream("images/isnbox.png")));
+                returnIcon = new ImageView(new Image(getClass().getResourceAsStream("images/inbox.png")));
             } else if (lowerCaseTreeItemValue.contains("sent")) {
                 returnIcon = new ImageView(new Image(getClass().getResourceAsStream("images/sent.png")));
             } else if (lowerCaseTreeItemValue.contains("spam")) {
