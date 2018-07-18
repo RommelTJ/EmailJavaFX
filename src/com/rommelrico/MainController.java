@@ -74,5 +74,12 @@ public class MainController implements Initializable {
 
         emailFoldersTree.setRoot(root);
         root.setValue("example@rommelrico.com");
+
+        TreeItem<String> inbox = new TreeItem<String>("Inbox");
+        TreeItem<String> sent = new TreeItem<String>("Sent");
+        TreeItem<String> spam = new TreeItem<String>("Spam");
+        TreeItem<String> trash = new TreeItem<String>("Trash");
+
+        root.getChildren().addAll(inbox, sent, spam, trash);
     }
 }
