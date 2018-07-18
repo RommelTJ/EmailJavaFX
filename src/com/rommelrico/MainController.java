@@ -94,16 +94,21 @@ public class MainController implements Initializable {
         String lowerCaseTreeItemValue = treeItemValue.toLowerCase();
         ImageView returnIcon;
 
-        if (lowerCaseTreeItemValue.contains("inbox")) {
-            returnIcon = new ImageView(new Image(getClass().getResourceAsStream("images/inbox.png")));
-        } else if (lowerCaseTreeItemValue.contains("sent")) {
-            returnIcon = new ImageView(new Image(getClass().getResourceAsStream("images/sent.png")));
-        } else if (lowerCaseTreeItemValue.contains("spam")) {
-            returnIcon = new ImageView(new Image(getClass().getResourceAsStream("images/spam.png")));
-        } else if (lowerCaseTreeItemValue.contains("@")) {
-            returnIcon = new ImageView(new Image(getClass().getResourceAsStream("images/email.png")));
-        } else {
-            returnIcon = new ImageView(new Image(getClass().getResourceAsStream("images/folder.png")));
+        try {
+            if (lowerCaseTreeItemValue.contains("inbox")) {
+                returnIcon = new ImageView(new Image(getClass().getResourceAsStream("images/isnbox.png")));
+            } else if (lowerCaseTreeItemValue.contains("sent")) {
+                returnIcon = new ImageView(new Image(getClass().getResourceAsStream("images/sent.png")));
+            } else if (lowerCaseTreeItemValue.contains("spam")) {
+                returnIcon = new ImageView(new Image(getClass().getResourceAsStream("images/spam.png")));
+            } else if (lowerCaseTreeItemValue.contains("@")) {
+                returnIcon = new ImageView(new Image(getClass().getResourceAsStream("images/email.png")));
+            } else {
+                returnIcon = new ImageView(new Image(getClass().getResourceAsStream("images/folder.png")));
+            }
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            returnIcon = new ImageView();
         }
 
         return returnIcon;
