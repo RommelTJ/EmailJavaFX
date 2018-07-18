@@ -112,6 +112,10 @@ public class MainController implements Initializable {
             returnIcon = new ImageView();
         }
 
+        // Make icons smaller
+        returnIcon.setFitWidth(16);
+        returnIcon.setFitHeight(16);
+
         return returnIcon;
     }
 
