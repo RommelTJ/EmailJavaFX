@@ -5,10 +5,11 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.Node;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.web.WebView;
 
 import java.net.URL;
@@ -22,6 +23,10 @@ public class MainController implements Initializable {
 
     @FXML
     private WebView messageRendererId;
+
+    @FXML
+    private TreeView<String> emailFoldersTree;
+    private TreeItem<String> root = new TreeItem<String>();
 
     @FXML
     private TableView<EmailMessageBean> emailTableView;
@@ -69,5 +74,49 @@ public class MainController implements Initializable {
                 return int1.compareTo(int2);
             }
         });
+
+        emailFoldersTree.setRoot(root);
+        root.setValue("example@rommelrico.com");
+        root.setGraphic(resolveIcon(root.getValue()));
+
+        TreeItem<String> inbox = new TreeItem<String>("Inbox", resolveIcon("Inbox"));
+        TreeItem<String> sent = new TreeItem<String>("Sent", resolveIcon("Sent"));
+        TreeItem<String> subItem1 = new TreeItem<String>("SubItem1", resolveIcon("SubItem1"));
+        TreeItem<String> subItem2 = new TreeItem<String>("SubItem2", resolveIcon("SubItem2"));
+        sent.getChildren().addAll(subItem1, subItem2);
+        TreeItem<String> spam = new TreeItem<String>("Spam", resolveIcon("Spam"));
+        TreeItem<String> trash = new TreeItem<String>("Trash", resolveIcon("Trash"));
+
+        root.getChildren().addAll(inbox, sent, spam, trash);
+        root.setExpanded(true);
     }
+
+    private Node resolveIcon(String treeItemValue) {
+        String lowerCaseTreeItemValue = treeItemValue.toLowerCase();
+        ImageView returnIcon;
+
+        try {
+            if (lowerCaseTreeItemValue.contains("inbox")) {
+                returnIcon = new ImageView(new Image(getClass().getResourceAsStream("images/inbox.png")));
+            } else if (lowerCaseTreeItemValue.contains("sent")) {
+                returnIcon = new ImageView(new Image(getClass().getResourceAsStream("images/sent.png")));
+            } else if (lowerCaseTreeItemValue.contains("spam")) {
+                returnIcon = new ImageView(new Image(getClass().getResourceAsStream("images/spam.png")));
+            } else if (lowerCaseTreeItemValue.contains("@")) {
+                returnIcon = new ImageView(new Image(getClass().getResourceAsStream("images/email.png")));
+            } else {
+                returnIcon = new ImageView(new Image(getClass().getResourceAsStream("images/folder.png")));
+            }
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            returnIcon = new ImageView();
+        }
+
+        // Make icons smaller
+        returnIcon.setFitWidth(16);
+        returnIcon.setFitHeight(16);
+
+        return returnIcon;
+    }
+
 }
