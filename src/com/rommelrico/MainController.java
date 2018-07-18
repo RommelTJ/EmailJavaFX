@@ -5,8 +5,11 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.web.WebView;
 
 import java.net.URL;
@@ -86,4 +89,24 @@ public class MainController implements Initializable {
         root.getChildren().addAll(inbox, sent, spam, trash);
         root.setExpanded(true);
     }
+
+    private Node resolveIcon(String treeItemValue) {
+        String lowerCaseTreeItemValue = treeItemValue.toLowerCase();
+        ImageView returnIcon;
+
+        if (lowerCaseTreeItemValue.contains("inbox")) {
+            returnIcon = new ImageView(new Image(getClass().getResourceAsStream("images/inbox.png")));
+        } else if (lowerCaseTreeItemValue.contains("sent")) {
+            returnIcon = new ImageView(new Image(getClass().getResourceAsStream("images/sent.png")));
+        } else if (lowerCaseTreeItemValue.contains("spam")) {
+            returnIcon = new ImageView(new Image(getClass().getResourceAsStream("images/spam.png")));
+        } else if (lowerCaseTreeItemValue.contains("@")) {
+            returnIcon = new ImageView(new Image(getClass().getResourceAsStream("images/email.png")));
+        } else {
+            returnIcon = new ImageView(new Image(getClass().getResourceAsStream("images/folder.png")));
+        }
+
+        return returnIcon;
+    }
+
 }
