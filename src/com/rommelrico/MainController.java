@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TreeView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.web.WebView;
 
@@ -22,6 +23,9 @@ public class MainController implements Initializable {
 
     @FXML
     private WebView messageRendererId;
+
+    @FXML
+    private TreeView<String> emailFoldersTree;
 
     @FXML
     private TableView<EmailMessageBean> emailTableView;
