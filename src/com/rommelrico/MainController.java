@@ -77,6 +77,9 @@ public class MainController implements Initializable {
 
         TreeItem<String> inbox = new TreeItem<String>("Inbox");
         TreeItem<String> sent = new TreeItem<String>("Sent");
+        TreeItem<String> subItem1 = new TreeItem<String>("SubItem1");
+        TreeItem<String> subItem2 = new TreeItem<String>("SubItem2");
+        sent.getChildren().addAll(subItem1, subItem2);
         TreeItem<String> spam = new TreeItem<String>("Spam");
         TreeItem<String> trash = new TreeItem<String>("Trash");
 
