@@ -71,5 +71,8 @@ public class MainController implements Initializable {
                 return int1.compareTo(int2);
             }
         });
+
+        emailFoldersTree.setRoot(root);
+        root.setValue("example@rommelrico.com");
     }
 }
