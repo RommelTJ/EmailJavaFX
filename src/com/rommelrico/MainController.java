@@ -81,5 +81,6 @@ public class MainController implements Initializable {
         TreeItem<String> trash = new TreeItem<String>("Trash");
 
         root.getChildren().addAll(inbox, sent, spam, trash);
+        root.setExpanded(true);
     }
 }
