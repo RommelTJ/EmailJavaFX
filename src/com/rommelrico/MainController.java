@@ -86,6 +86,14 @@ public class MainController implements Initializable {
                 emailTableView.setItems(sampleData.emailFolders.get(item.getValue()));
             }
         });
+
+        emailTableView.setOnMouseClicked(e->{
+            EmailMessageBean message = emailTableView.getSelectionModel().getSelectedItem();
+            if(message != null){
+                messageRendererId.getEngine().loadContent(message.getContent());
+            }
+        });
+
     }
 
     private Node resolveIcon(String treeItemValue) {
