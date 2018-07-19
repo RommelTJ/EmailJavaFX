@@ -27,6 +27,7 @@ public class MainController implements Initializable {
     @FXML
     private TreeView<String> emailFoldersTree;
     private TreeItem<String> root = new TreeItem<String>();
+    private SampleData sampleData = new SampleData();
 
     @FXML
     private TableView<EmailMessageBean> emailTableView;
@@ -78,6 +79,13 @@ public class MainController implements Initializable {
 
         root.getChildren().addAll(inbox, sent, spam, trash);
         root.setExpanded(true);
+
+        emailFoldersTree.setOnMouseClicked(e -> {
+            TreeItem<String> item = emailFoldersTree.getSelectionModel().getSelectedItem();
+            if (item != null) {
+                emailTableView.setItems(sampleData.emailFolders.get(item.getValue()));
+            }
+        });
     }
 
     private Node resolveIcon(String treeItemValue) {
