@@ -11,6 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.web.WebView;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.Comparator;
@@ -27,6 +28,8 @@ public class MainController implements Initializable {
     @FXML
     private TreeView<String> emailFoldersTree;
     private TreeItem<String> root = new TreeItem<String>();
+    private SampleData sampleData = new SampleData();
+    private MenuItem showDetails = new MenuItem("show details");
 
     @FXML
     private TableView<EmailMessageBean> emailTableView;
@@ -45,22 +48,11 @@ public class MainController implements Initializable {
         System.out.println("Pushed button1");
     }
 
-    final ObservableList<EmailMessageBean> data = FXCollections.observableArrayList(
-            new EmailMessageBean("Hello!", "me@rommelrico.com", 200),
-            new EmailMessageBean("Sample Email", "me@rommelrico.com", 23200),
-            new EmailMessageBean("Need to do stuff", "admin@purnkleen.com", 10),
-            new EmailMessageBean("Don't forget", "test@test.com", 200)
-    );
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        messageRendererId.getEngine().loadContent("<html>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.</html>");
-
         subjectCol.setCellValueFactory(new PropertyValueFactory<EmailMessageBean, String>("subject"));
         senderCol.setCellValueFactory(new PropertyValueFactory<EmailMessageBean, String>("sender"));
         sizeCol.setCellValueFactory(new PropertyValueFactory<EmailMessageBean, String>("size"));
-
-        emailTableView.setItems(data);
 
         sizeCol.setComparator(new Comparator<String>() {
 
@@ -89,6 +81,28 @@ public class MainController implements Initializable {
 
         root.getChildren().addAll(inbox, sent, spam, trash);
         root.setExpanded(true);
+
+        emailTableView.setContextMenu(new ContextMenu(showDetails));
+
+        emailFoldersTree.setOnMouseClicked(e -> {
+            TreeItem<String> item = emailFoldersTree.getSelectionModel().getSelectedItem();
+            if (item != null) {
+                emailTableView.setItems(sampleData.emailFolders.get(item.getValue()));
+            }
+        });
+
+        emailTableView.setOnMouseClicked(e -> {
+            EmailMessageBean message = emailTableView.getSelectionModel().getSelectedItem();
+            if(message != null){
+                messageRendererId.getEngine().loadContent(message.getContent());
+            }
+        });
+
+        showDetails.setOnAction(e -> {
+            Stage stage = new Stage();
+            stage.show();
+        });
+
     }
 
     private Node resolveIcon(String treeItemValue) {

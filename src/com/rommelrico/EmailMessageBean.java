@@ -10,13 +10,15 @@ public class EmailMessageBean {
     private SimpleStringProperty sender;
     private SimpleStringProperty subject;
     private SimpleStringProperty size;
+    private String content;
 
     public static Map<String, Integer> formattedValues = new HashMap<String, Integer>();
 
-    public EmailMessageBean(String subject, String sender, int size) {
-        this.sender = new SimpleStringProperty(sender);
-        this.subject = new SimpleStringProperty(subject);
+    public EmailMessageBean(String Subject, String Sender, int size, String Content){
+        this.subject = new SimpleStringProperty(Subject);
+        this.sender = new SimpleStringProperty(Sender);
         this.size = new SimpleStringProperty(formatSize(size));
+        this.content = Content;
     }
 
     public String getSender() {
@@ -41,6 +43,10 @@ public class EmailMessageBean {
 
     public SimpleStringProperty sizeProperty() {
         return size;
+    }
+
+    public String getContent(){
+        return content;
     }
 
     private String formatSize(int size) {
