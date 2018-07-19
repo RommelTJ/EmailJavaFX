@@ -11,6 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.web.WebView;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.Comparator;
@@ -28,6 +29,7 @@ public class MainController implements Initializable {
     private TreeView<String> emailFoldersTree;
     private TreeItem<String> root = new TreeItem<String>();
     private SampleData sampleData = new SampleData();
+    private MenuItem showDetails = new MenuItem("show details");
 
     @FXML
     private TableView<EmailMessageBean> emailTableView;
@@ -80,6 +82,8 @@ public class MainController implements Initializable {
         root.getChildren().addAll(inbox, sent, spam, trash);
         root.setExpanded(true);
 
+        emailTableView.setContextMenu(new ContextMenu(showDetails));
+
         emailFoldersTree.setOnMouseClicked(e -> {
             TreeItem<String> item = emailFoldersTree.getSelectionModel().getSelectedItem();
             if (item != null) {
@@ -87,11 +91,16 @@ public class MainController implements Initializable {
             }
         });
 
-        emailTableView.setOnMouseClicked(e->{
+        emailTableView.setOnMouseClicked(e -> {
             EmailMessageBean message = emailTableView.getSelectionModel().getSelectedItem();
             if(message != null){
                 messageRendererId.getEngine().loadContent(message.getContent());
             }
+        });
+
+        showDetails.setOnAction(e -> {
+            Stage stage = new Stage();
+            stage.show();
         });
 
     }
