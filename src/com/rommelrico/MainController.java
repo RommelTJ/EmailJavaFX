@@ -105,7 +105,7 @@ public class MainController implements Initializable {
         showDetails.setOnAction(e -> {
             Pane pane = null;
             try {
-                pane = FXMLLoader.load(getClass().getResource("MainLayout.fxml"));
+                pane = FXMLLoader.load(getClass().getResource("EmailDetailsLayout.fxml"));
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
