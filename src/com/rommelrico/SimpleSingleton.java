@@ -8,4 +8,15 @@ public class SimpleSingleton {
     }
 
     private SimpleSingleton() { }
+
+    private EmailMessageBean messageBean;
+
+    public EmailMessageBean getMessageBean() {
+        return messageBean;
+    }
+
+    public void setMessageBean(EmailMessageBean messageBean) {
+        this.messageBean = messageBean;
+    }
+
 }

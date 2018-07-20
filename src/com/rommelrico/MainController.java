@@ -1,7 +1,5 @@
 package com.rommelrico;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -34,6 +32,7 @@ public class MainController implements Initializable {
     private TreeItem<String> root = new TreeItem<String>();
     private SampleData sampleData = new SampleData();
     private MenuItem showDetails = new MenuItem("show details");
+    private SimpleSingleton simpleSingleton;
 
     @FXML
     private TableView<EmailMessageBean> emailTableView;
@@ -54,6 +53,8 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        simpleSingleton = SimpleSingleton.getInstance();
+
         subjectCol.setCellValueFactory(new PropertyValueFactory<EmailMessageBean, String>("subject"));
         senderCol.setCellValueFactory(new PropertyValueFactory<EmailMessageBean, String>("sender"));
         sizeCol.setCellValueFactory(new PropertyValueFactory<EmailMessageBean, String>("size"));
@@ -97,7 +98,8 @@ public class MainController implements Initializable {
 
         emailTableView.setOnMouseClicked(e -> {
             EmailMessageBean message = emailTableView.getSelectionModel().getSelectedItem();
-            if(message != null){
+            if (message != null) {
+                simpleSingleton.setMessageBean(message);
                 messageRendererId.getEngine().loadContent(message.getContent());
             }
         });

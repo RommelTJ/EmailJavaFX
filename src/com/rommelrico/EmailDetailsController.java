@@ -10,6 +10,8 @@ import java.util.ResourceBundle;
 
 public class EmailDetailsController implements Initializable {
 
+    private SimpleSingleton simpleSingleton;
+
     @FXML
     private WebView webView;
 
@@ -21,7 +23,12 @@ public class EmailDetailsController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        System.out.println("Initialized.");
+        simpleSingleton = SimpleSingleton.getInstance();
+
+        subjectLabel.setText("Subject: " + simpleSingleton.getMessageBean().getSubject());
+        senderLabel.setText("Sender: " + simpleSingleton.getMessageBean().getSender());
+
+        webView.getEngine().loadContent(simpleSingleton.getMessageBean().getContent());
     }
 
 }
