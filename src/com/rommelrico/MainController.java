@@ -1,18 +1,20 @@
 package com.rommelrico;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Comparator;
 import java.util.ResourceBundle;
@@ -30,6 +32,7 @@ public class MainController implements Initializable {
     private TreeItem<String> root = new TreeItem<String>();
     private SampleData sampleData = new SampleData();
     private MenuItem showDetails = new MenuItem("show details");
+    private SimpleSingleton simpleSingleton;
 
     @FXML
     private TableView<EmailMessageBean> emailTableView;
@@ -50,6 +53,8 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        simpleSingleton = SimpleSingleton.getInstance();
+
         subjectCol.setCellValueFactory(new PropertyValueFactory<EmailMessageBean, String>("subject"));
         senderCol.setCellValueFactory(new PropertyValueFactory<EmailMessageBean, String>("sender"));
         sizeCol.setCellValueFactory(new PropertyValueFactory<EmailMessageBean, String>("size"));
@@ -93,13 +98,24 @@ public class MainController implements Initializable {
 
         emailTableView.setOnMouseClicked(e -> {
             EmailMessageBean message = emailTableView.getSelectionModel().getSelectedItem();
-            if(message != null){
+            if (message != null) {
+                simpleSingleton.setMessageBean(message);
                 messageRendererId.getEngine().loadContent(message.getContent());
             }
         });
 
         showDetails.setOnAction(e -> {
+            Pane pane = null;
+            try {
+                pane = FXMLLoader.load(getClass().getResource("EmailDetailsLayout.fxml"));
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+            Scene scene = new Scene(pane);
+            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+
             Stage stage = new Stage();
+            stage.setScene(scene);
             stage.show();
         });
 
