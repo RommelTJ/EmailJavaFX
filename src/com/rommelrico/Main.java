@@ -1,5 +1,6 @@
 package com.rommelrico;
 
+import com.rommelrico.view.ViewFactory;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -10,11 +11,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Pane pane = FXMLLoader.load(getClass().getResource("view/MainLayout.fxml"));
-
-        Scene scene = new Scene(pane);
-        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-        primaryStage.setTitle("Hello World");
+        ViewFactory viewFactory = new ViewFactory();
+        Scene scene = viewFactory.getMainScene();
         primaryStage.setScene(scene);
         primaryStage.show();
     }
