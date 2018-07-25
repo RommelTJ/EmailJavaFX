@@ -1,4 +1,4 @@
-package com.rommelrico;
+package com.rommelrico.model;
 
 import javafx.beans.property.SimpleStringProperty;
 

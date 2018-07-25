@@ -1,4 +1,4 @@
-package com.rommelrico;
+package com.rommelrico.model;
 
 public class SimpleSingleton {
     private static SimpleSingleton ourInstance = new SimpleSingleton();

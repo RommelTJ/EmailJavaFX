@@ -1,4 +1,4 @@
-package com.rommelrico;
+package com.rommelrico.model;
 
 import java.util.HashMap;
 import java.util.Map;

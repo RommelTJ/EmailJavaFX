@@ -10,7 +10,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Pane pane = FXMLLoader.load(getClass().getResource("MainLayout.fxml"));
+        Pane pane = FXMLLoader.load(getClass().getResource("view/MainLayout.fxml"));
 
         Scene scene = new Scene(pane);
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
