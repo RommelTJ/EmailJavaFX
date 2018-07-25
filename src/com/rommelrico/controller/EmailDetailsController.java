@@ -1,5 +1,6 @@
-package com.rommelrico;
+package com.rommelrico.controller;
 
+import com.rommelrico.model.SimpleSingleton;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
