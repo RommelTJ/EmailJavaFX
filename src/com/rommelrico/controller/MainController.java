@@ -57,6 +57,7 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        ViewFactory viewFactory = new ViewFactory();
         simpleSingleton = SimpleSingleton.getInstance();
 
         subjectCol.setCellValueFactory(new PropertyValueFactory<EmailMessageBean, String>("subject"));
@@ -78,15 +79,15 @@ public class MainController implements Initializable {
 
         emailFoldersTree.setRoot(root);
         root.setValue("example@rommelrico.com");
-        root.setGraphic(resolveIcon(root.getValue()));
+        root.setGraphic(viewFactory.resolveIcon(root.getValue()));
 
-        TreeItem<String> inbox = new TreeItem<String>("Inbox", resolveIcon("Inbox"));
-        TreeItem<String> sent = new TreeItem<String>("Sent", resolveIcon("Sent"));
-        TreeItem<String> subItem1 = new TreeItem<String>("SubItem1", resolveIcon("SubItem1"));
-        TreeItem<String> subItem2 = new TreeItem<String>("SubItem2", resolveIcon("SubItem2"));
+        TreeItem<String> inbox = new TreeItem<String>("Inbox", viewFactory.resolveIcon("Inbox"));
+        TreeItem<String> sent = new TreeItem<String>("Sent", viewFactory.resolveIcon("Sent"));
+        TreeItem<String> subItem1 = new TreeItem<String>("SubItem1", viewFactory.resolveIcon("SubItem1"));
+        TreeItem<String> subItem2 = new TreeItem<String>("SubItem2", viewFactory.resolveIcon("SubItem2"));
         sent.getChildren().addAll(subItem1, subItem2);
-        TreeItem<String> spam = new TreeItem<String>("Spam", resolveIcon("Spam"));
-        TreeItem<String> trash = new TreeItem<String>("Trash", resolveIcon("Trash"));
+        TreeItem<String> spam = new TreeItem<String>("Spam", viewFactory.resolveIcon("Spam"));
+        TreeItem<String> trash = new TreeItem<String>("Trash", viewFactory.resolveIcon("Trash"));
 
         root.getChildren().addAll(inbox, sent, spam, trash);
         root.setExpanded(true);
@@ -109,7 +110,6 @@ public class MainController implements Initializable {
         });
 
         showDetails.setOnAction(e -> {
-            ViewFactory viewFactory = new ViewFactory();
             Scene scene = viewFactory.getEmailDetailsScene();
 
             Stage stage = new Stage();
@@ -117,34 +117,6 @@ public class MainController implements Initializable {
             stage.show();
         });
 
-    }
-
-    private Node resolveIcon(String treeItemValue) {
-        String lowerCaseTreeItemValue = treeItemValue.toLowerCase();
-        ImageView returnIcon;
-
-        try {
-            if (lowerCaseTreeItemValue.contains("inbox")) {
-                returnIcon = new ImageView(new Image(getClass().getResourceAsStream("images/inbox.png")));
-            } else if (lowerCaseTreeItemValue.contains("sent")) {
-                returnIcon = new ImageView(new Image(getClass().getResourceAsStream("images/sent.png")));
-            } else if (lowerCaseTreeItemValue.contains("spam")) {
-                returnIcon = new ImageView(new Image(getClass().getResourceAsStream("images/spam.png")));
-            } else if (lowerCaseTreeItemValue.contains("@")) {
-                returnIcon = new ImageView(new Image(getClass().getResourceAsStream("images/email.png")));
-            } else {
-                returnIcon = new ImageView(new Image(getClass().getResourceAsStream("images/folder.png")));
-            }
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-            returnIcon = new ImageView();
-        }
-
-        // Make icons smaller
-        returnIcon.setFitWidth(16);
-        returnIcon.setFitHeight(16);
-
-        return returnIcon;
     }
 
 }
