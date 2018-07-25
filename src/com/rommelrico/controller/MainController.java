@@ -3,6 +3,7 @@ package com.rommelrico.controller;
 import com.rommelrico.model.EmailMessageBean;
 import com.rommelrico.model.SampleData;
 import com.rommelrico.model.SimpleSingleton;
+import com.rommelrico.view.ViewFactory;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -108,14 +109,8 @@ public class MainController implements Initializable {
         });
 
         showDetails.setOnAction(e -> {
-            Pane pane = null;
-            try {
-                pane = FXMLLoader.load(getClass().getResource("view/EmailDetailsLayout.fxml"));
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-            Scene scene = new Scene(pane);
-            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+            ViewFactory viewFactory = new ViewFactory();
+            Scene scene = viewFactory.getEmailDetailsScene();
 
             Stage stage = new Stage();
             stage.setScene(scene);
