@@ -24,6 +24,8 @@ public class ViewFactory {
     private final String MAIN_SCREEN_FXML = "MainLayout.fxml";
     private final String EMAIL_DETAILS_FXML = "EmailDetailsLayout.fxml";
 
+    public static ViewFactory defaultFactory = new ViewFactory();
+
     public Scene getMainScene() {
         mainController = new MainController(modelAccess);
         return initializeScene(MAIN_SCREEN_FXML, mainController);

@@ -58,7 +58,7 @@ public class MainController extends AbstractController implements Initializable 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ViewFactory viewFactory = new ViewFactory();
+        ViewFactory viewFactory = ViewFactory.defaultFactory;
 
         subjectCol.setCellValueFactory(new PropertyValueFactory<EmailMessageBean, String>("subject"));
         senderCol.setCellValueFactory(new PropertyValueFactory<EmailMessageBean, String>("sender"));
