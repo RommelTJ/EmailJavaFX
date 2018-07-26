@@ -2,7 +2,6 @@ package com.rommelrico.controller;
 
 import com.rommelrico.model.EmailMessageBean;
 import com.rommelrico.model.SampleData;
-import com.rommelrico.model.SimpleSingleton;
 import com.rommelrico.view.ViewFactory;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,6 +23,8 @@ import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
 
+    private ModelAccess modelAccess;
+
     @FXML
     private Button button1;
 
@@ -35,7 +36,6 @@ public class MainController implements Initializable {
     private TreeItem<String> root = new TreeItem<String>();
     private SampleData sampleData = new SampleData();
     private MenuItem showDetails = new MenuItem("show details");
-    private SimpleSingleton simpleSingleton;
 
     @FXML
     private TableView<EmailMessageBean> emailTableView;

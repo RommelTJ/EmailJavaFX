@@ -1,6 +1,5 @@
 package com.rommelrico.controller;
 
-import com.rommelrico.model.SimpleSingleton;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -11,7 +10,7 @@ import java.util.ResourceBundle;
 
 public class EmailDetailsController implements Initializable {
 
-    private SimpleSingleton simpleSingleton;
+    private ModelAccess modelAccess;
 
     @FXML
     private WebView webView;
