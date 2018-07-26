@@ -59,7 +59,6 @@ public class MainController extends AbstractController implements Initializable 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ViewFactory viewFactory = new ViewFactory();
-        simpleSingleton = SimpleSingleton.getInstance();
 
         subjectCol.setCellValueFactory(new PropertyValueFactory<EmailMessageBean, String>("subject"));
         senderCol.setCellValueFactory(new PropertyValueFactory<EmailMessageBean, String>("sender"));
@@ -105,7 +104,7 @@ public class MainController extends AbstractController implements Initializable 
         emailTableView.setOnMouseClicked(e -> {
             EmailMessageBean message = emailTableView.getSelectionModel().getSelectedItem();
             if (message != null) {
-                simpleSingleton.setMessageBean(message);
+                getModelAccess().setSelectedMessage(message);
                 messageRendererId.getEngine().loadContent(message.getContent());
             }
         });

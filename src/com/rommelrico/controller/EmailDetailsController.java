@@ -25,12 +25,9 @@ public class EmailDetailsController extends AbstractController implements Initia
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        simpleSingleton = SimpleSingleton.getInstance();
-
-        subjectLabel.setText("Subject: " + simpleSingleton.getMessageBean().getSubject());
-        senderLabel.setText("Sender: " + simpleSingleton.getMessageBean().getSender());
-
-        webView.getEngine().loadContent(simpleSingleton.getMessageBean().getContent());
+        subjectLabel.setText("Subject: " + getModelAccess().getSelectedMessage().getSubject());
+        senderLabel.setText("Sender: " + getModelAccess().getSelectedMessage().getSender());
+        webView.getEngine().loadContent(getModelAccess().getSelectedMessage().getContent());
     }
 
 }
