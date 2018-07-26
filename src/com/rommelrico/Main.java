@@ -9,7 +9,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        ViewFactory viewFactory = new ViewFactory();
+        ViewFactory viewFactory = ViewFactory.defaultFactory;
         Scene scene = viewFactory.getMainScene();
         primaryStage.setScene(scene);
         primaryStage.show();

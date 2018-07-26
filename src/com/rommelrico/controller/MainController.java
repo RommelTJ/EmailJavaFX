@@ -2,7 +2,6 @@ package com.rommelrico.controller;
 
 import com.rommelrico.model.EmailMessageBean;
 import com.rommelrico.model.SampleData;
-import com.rommelrico.model.SimpleSingleton;
 import com.rommelrico.view.ViewFactory;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,7 +21,7 @@ import java.net.URL;
 import java.util.Comparator;
 import java.util.ResourceBundle;
 
-public class MainController implements Initializable {
+public class MainController extends AbstractController implements Initializable {
 
     @FXML
     private Button button1;
@@ -35,7 +34,6 @@ public class MainController implements Initializable {
     private TreeItem<String> root = new TreeItem<String>();
     private SampleData sampleData = new SampleData();
     private MenuItem showDetails = new MenuItem("show details");
-    private SimpleSingleton simpleSingleton;
 
     @FXML
     private TableView<EmailMessageBean> emailTableView;
@@ -54,10 +52,13 @@ public class MainController implements Initializable {
         System.out.println("Pushed button1");
     }
 
+    public MainController(ModelAccess modelAccess) {
+        super(modelAccess);
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ViewFactory viewFactory = new ViewFactory();
-        simpleSingleton = SimpleSingleton.getInstance();
+        ViewFactory viewFactory = ViewFactory.defaultFactory;
 
         subjectCol.setCellValueFactory(new PropertyValueFactory<EmailMessageBean, String>("subject"));
         senderCol.setCellValueFactory(new PropertyValueFactory<EmailMessageBean, String>("sender"));
@@ -103,7 +104,7 @@ public class MainController implements Initializable {
         emailTableView.setOnMouseClicked(e -> {
             EmailMessageBean message = emailTableView.getSelectionModel().getSelectedItem();
             if (message != null) {
-                simpleSingleton.setMessageBean(message);
+                getModelAccess().setSelectedMessage(message);
                 messageRendererId.getEngine().loadContent(message.getContent());
             }
         });
