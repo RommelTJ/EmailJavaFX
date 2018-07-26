@@ -21,9 +21,7 @@ import java.net.URL;
 import java.util.Comparator;
 import java.util.ResourceBundle;
 
-public class MainController implements Initializable {
-
-    private ModelAccess modelAccess;
+public class MainController extends AbstractController implements Initializable {
 
     @FXML
     private Button button1;
@@ -52,6 +50,10 @@ public class MainController implements Initializable {
     @FXML
     void button1Action(ActionEvent event) {
         System.out.println("Pushed button1");
+    }
+
+    public MainController(ModelAccess modelAccess) {
+        super(modelAccess);
     }
 
     @Override
