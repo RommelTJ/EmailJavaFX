@@ -1,7 +1,12 @@
 package com.rommelrico.view;
 
+import com.rommelrico.controller.AbstractController;
+import com.rommelrico.controller.EmailDetailsController;
+import com.rommelrico.controller.MainController;
+import com.rommelrico.controller.ModelAccess;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -11,32 +16,20 @@ import java.io.IOException;
 
 public class ViewFactory {
 
+    private ModelAccess modelAccess = new ModelAccess();
+    private MainController mainController;
+    private EmailDetailsController emailDetailsController;
+
+    private final String DEFAULT_CSS = "style.css";
+
     public Scene getMainScene() {
-        Pane pane;
-
-        try {
-            pane = FXMLLoader.load(getClass().getResource("MainLayout.fxml"));
-        } catch (IOException e) {
-            pane = new Pane();
-        }
-
-        Scene scene = new Scene(pane);
-        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-        return scene;
+        mainController = new MainController(modelAccess);
+        return initializeScene("MainLayout.fxml", mainController);
     }
 
     public Scene getEmailDetailsScene() {
-        Pane pane;
-
-        try {
-            pane = FXMLLoader.load(getClass().getResource("EmailDetailsLayout.fxml"));
-        } catch (IOException e) {
-            pane = new Pane();
-        }
-
-        Scene scene = new Scene(pane);
-        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-        return scene;
+        emailDetailsController = new EmailDetailsController(modelAccess);
+        return initializeScene("EmailDetailsLayout.fxml", emailDetailsController);
     }
 
     public Node resolveIcon(String treeItemValue) {
@@ -66,4 +59,23 @@ public class ViewFactory {
 
         return returnIcon;
     }
+
+    private Scene initializeScene(String fxmlPath, AbstractController controller) {
+        FXMLLoader loader;
+        Parent parent;
+        Scene scene;
+
+        try {
+            loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            loader.setController(controller);
+            parent = loader.load();
+        } catch (Exception e) {
+            return null;
+        }
+
+        scene = new Scene(parent);
+        scene.getStylesheets().add(getClass().getResource(DEFAULT_CSS).toExternalForm());
+        return scene;
+    }
+
 }
