@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
+import javax.naming.OperationNotSupportedException;
 import java.io.IOException;
 
 public class ViewFactory {
@@ -25,10 +26,16 @@ public class ViewFactory {
     private final String EMAIL_DETAILS_FXML = "EmailDetailsLayout.fxml";
 
     public static ViewFactory defaultFactory = new ViewFactory();
+    private static boolean mainViewInitialized = false;
 
-    public Scene getMainScene() {
-        mainController = new MainController(modelAccess);
-        return initializeScene(MAIN_SCREEN_FXML, mainController);
+    public Scene getMainScene() throws OperationNotSupportedException {
+        if (!mainViewInitialized) {
+            mainController = new MainController(modelAccess);
+            mainViewInitialized = true;
+            return initializeScene(MAIN_SCREEN_FXML, mainController);
+        } else {
+            throw new OperationNotSupportedException("View already launched.");
+        }
     }
 
     public Scene getEmailDetailsScene() {
