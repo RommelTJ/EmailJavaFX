@@ -21,15 +21,17 @@ public class ViewFactory {
     private EmailDetailsController emailDetailsController;
 
     private final String DEFAULT_CSS = "style.css";
+    private final String MAIN_SCREEN_FXML = "MainLayout.fxml";
+    private final String EMAIL_DETAILS_FXML = "EmailDetailsLayout.fxml";
 
     public Scene getMainScene() {
         mainController = new MainController(modelAccess);
-        return initializeScene("MainLayout.fxml", mainController);
+        return initializeScene(MAIN_SCREEN_FXML, mainController);
     }
 
     public Scene getEmailDetailsScene() {
         emailDetailsController = new EmailDetailsController(modelAccess);
-        return initializeScene("EmailDetailsLayout.fxml", emailDetailsController);
+        return initializeScene(EMAIL_DETAILS_FXML, emailDetailsController);
     }
 
     public Node resolveIcon(String treeItemValue) {
