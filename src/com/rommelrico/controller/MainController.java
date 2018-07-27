@@ -121,4 +121,13 @@ public class MainController extends AbstractController implements Initializable 
 
     }
 
+    @FXML
+    void changeReadAction(ActionEvent event) {
+        EmailMessageBean messageBean = getModelAccess().getSelectedMessage();
+        if (messageBean != null) {
+            boolean value = messageBean.isRead();
+            messageBean.setRead(!value);
+        }
+    }
+
 }
