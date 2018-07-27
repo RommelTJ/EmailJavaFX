@@ -6,6 +6,10 @@ public abstract class AbstractTableItem {
 
     private final SimpleBooleanProperty read = new SimpleBooleanProperty();
 
+    public AbstractTableItem(boolean isRead) {
+        this.setRead(isRead);
+    }
+
     public boolean isRead() {
         return read.get();
     }
