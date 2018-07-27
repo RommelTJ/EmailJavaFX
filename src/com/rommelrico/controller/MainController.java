@@ -2,6 +2,7 @@ package com.rommelrico.controller;
 
 import com.rommelrico.model.EmailMessageBean;
 import com.rommelrico.model.SampleData;
+import com.rommelrico.model.table.BoldableRowFactory;
 import com.rommelrico.view.ViewFactory;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -58,6 +59,7 @@ public class MainController extends AbstractController implements Initializable 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        emailTableView.setRowFactory(e -> new BoldableRowFactory<>());
         ViewFactory viewFactory = ViewFactory.defaultFactory;
 
         subjectCol.setCellValueFactory(new PropertyValueFactory<EmailMessageBean, String>("subject"));
