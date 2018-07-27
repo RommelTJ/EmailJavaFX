@@ -21,11 +21,11 @@ public class SampleData {
             new EmailMessageBean("Escape plans","example@yahoo.com",6300, "<html>Basement and then tun to the left<h3>lorem ipsum + <br> </h3></html>", true)
     );
     private final ObservableList<EmailMessageBean> Spam = FXCollections.observableArrayList(
-            new EmailMessageBean("You won't belive this: click and see!!!","serious@company.com", 22000000, "<html>You are smart<h3>lorem ipsum + <br> </h3></html>", true),
+            new EmailMessageBean("You won't believe this: click and see!!!","serious@company.com", 22000000, "<html>You are smart<h3>lorem ipsum + <br> </h3></html>", true),
             new EmailMessageBean("Like and share if you care!!","book@face.com", 200, "<html>Your likes make a huge difference!!!<h3>lorem ipsum + <br> </h3></html>", true),
             new EmailMessageBean("You just won 2 cents! Click to claim!","ss@bail.com", 10, "<html>Give us first 3 cents!<h3>lorem ipsum + <br> </h3></html>", true),
             new EmailMessageBean("You got a virus!","safe@brousing.com",6300, "<html>Formatting computer.....<h3>lorem ipsum + <br> </h3></html>", true),
-            new EmailMessageBean("You won't belive this: click and see!!!","serious@company.com", 22000000, "<html>You are smart<h3>lorem ipsum + <br> </h3></html>", true),
+            new EmailMessageBean("You won't believe this: click and see!!!","serious@company.com", 22000000, "<html>You are smart<h3>lorem ipsum + <br> </h3></html>", true),
             new EmailMessageBean("Like and share if you care!!","book@face.com", 200, "<html>Your likes make a huge difference!!!<h3>lorem ipsum + <br> </h3></html>", true),
             new EmailMessageBean("You just won 2 cents! Click to claim!","ss@bail.com", 10, "<html>Give us first 3 cents!<h3>lorem ipsum + <br> </h3></html>", true),
             new EmailMessageBean("You got a virus!","safe@brousing.com",6300, "<html>Formatting computer.....<h3>lorem ipsum + <br> </h3></html>", true),
