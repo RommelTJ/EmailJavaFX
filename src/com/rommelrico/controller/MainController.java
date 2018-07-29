@@ -134,6 +134,14 @@ public class MainController extends AbstractController implements Initializable 
         if (messageBean != null) {
             boolean value = messageBean.isRead();
             messageBean.setRead(!value);
+            EmailFolderBean<String> selectedFolder = getModelAccess().getSelectedFolder();
+            if (selectedFolder != null) {
+                if (value) {
+                    selectedFolder.incrementUnreadMessagesCount(1);
+                } else {
+                    selectedFolder.decreaseUnreadMessagesCount();
+                }
+            }
         }
     }
 
