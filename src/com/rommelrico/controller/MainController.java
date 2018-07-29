@@ -86,6 +86,13 @@ public class MainController extends AbstractController implements Initializable 
         EmailFolderBean<String> rommelAccount = new EmailFolderBean<>("me@rommelrico.com");
         root.getChildren().add(rommelAccount);
 
+        EmailFolderBean<String> inbox = new EmailFolderBean<>("Inbox", "CompleteInbox");
+        EmailFolderBean<String> sent = new EmailFolderBean<>("Sent", "CompleteSent");
+        sent.getChildren().add(new EmailFolderBean<>("Subfolder1", "Subfolder1Complete"));
+        sent.getChildren().add(new EmailFolderBean<>("Subfolder2", "Subfolder2Complete"));
+        EmailFolderBean<String> spam = new EmailFolderBean<>("Spam", "CompleteSpam");
+        rommelAccount.getChildren().addAll(inbox, sent, spam);
+
         emailTableView.setContextMenu(new ContextMenu(showDetails));
 
         emailFoldersTree.setOnMouseClicked(e -> {
