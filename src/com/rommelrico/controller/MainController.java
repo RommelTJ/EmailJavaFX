@@ -100,9 +100,13 @@ public class MainController extends AbstractController implements Initializable 
         emailTableView.setContextMenu(new ContextMenu(showDetails));
 
         emailFoldersTree.setOnMouseClicked(e -> {
-            TreeItem<String> item = emailFoldersTree.getSelectionModel().getSelectedItem();
-            if (item != null) {
-                emailTableView.setItems(sampleData.emailFolders.get(item.getValue()));
+            EmailFolderBean<String> item = (EmailFolderBean<String>) emailFoldersTree.getSelectionModel().getSelectedItem();
+            if (item != null && !item.isTopElement()) {
+                emailTableView.setItems(item.getData());
+                getModelAccess().setSelectedFolder(item);
+
+                // Clear the selected message
+                getModelAccess().setSelectedMessage(null);
             }
         });
 
