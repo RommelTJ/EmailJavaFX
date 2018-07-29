@@ -2,6 +2,7 @@ package com.rommelrico.controller;
 
 import com.rommelrico.model.EmailMessageBean;
 import com.rommelrico.model.SampleData;
+import com.rommelrico.model.folder.EmailFolderBean;
 import com.rommelrico.model.table.BoldableRowFactory;
 import com.rommelrico.view.ViewFactory;
 import javafx.event.ActionEvent;
@@ -32,7 +33,6 @@ public class MainController extends AbstractController implements Initializable 
 
     @FXML
     private TreeView<String> emailFoldersTree;
-    private TreeItem<String> root = new TreeItem<String>();
     private SampleData sampleData = new SampleData();
     private MenuItem showDetails = new MenuItem("show details");
 
@@ -79,20 +79,12 @@ public class MainController extends AbstractController implements Initializable 
             }
         });
 
+        EmailFolderBean<String> root = new EmailFolderBean<>("");
         emailFoldersTree.setRoot(root);
-        root.setValue("example@rommelrico.com");
-        root.setGraphic(viewFactory.resolveIcon(root.getValue()));
+        emailFoldersTree.setShowRoot(false);
 
-        TreeItem<String> inbox = new TreeItem<String>("Inbox", viewFactory.resolveIcon("Inbox"));
-        TreeItem<String> sent = new TreeItem<String>("Sent", viewFactory.resolveIcon("Sent"));
-        TreeItem<String> subItem1 = new TreeItem<String>("SubItem1", viewFactory.resolveIcon("SubItem1"));
-        TreeItem<String> subItem2 = new TreeItem<String>("SubItem2", viewFactory.resolveIcon("SubItem2"));
-        sent.getChildren().addAll(subItem1, subItem2);
-        TreeItem<String> spam = new TreeItem<String>("Spam", viewFactory.resolveIcon("Spam"));
-        TreeItem<String> trash = new TreeItem<String>("Trash", viewFactory.resolveIcon("Trash"));
-
-        root.getChildren().addAll(inbox, sent, spam, trash);
-        root.setExpanded(true);
+        EmailFolderBean<String> rommelAccount = new EmailFolderBean<>("me@rommelrico.com");
+        root.getChildren().add(rommelAccount);
 
         emailTableView.setContextMenu(new ContextMenu(showDetails));
 
