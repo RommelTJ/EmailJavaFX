@@ -93,6 +93,10 @@ public class MainController extends AbstractController implements Initializable 
         EmailFolderBean<String> spam = new EmailFolderBean<>("Spam", "CompleteSpam");
         rommelAccount.getChildren().addAll(inbox, sent, spam);
 
+        inbox.getData().addAll(SampleData.Inbox);
+        sent.getData().addAll(SampleData.Sent);
+        spam.getData().addAll(SampleData.Spam);
+
         emailTableView.setContextMenu(new ContextMenu(showDetails));
 
         emailFoldersTree.setOnMouseClicked(e -> {
