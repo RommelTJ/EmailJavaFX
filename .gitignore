@@ -236,7 +236,6 @@ atlassian-ide-plugin.xml
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.ear
 
