@@ -6,6 +6,8 @@ import com.rommelrico.model.folder.EmailFolderBean;
 import com.rommelrico.model.table.BoldableRowFactory;
 import com.rommelrico.view.ViewFactory;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -49,9 +51,21 @@ public class MainController extends AbstractController implements Initializable 
 
     @FXML
     void button1Action(ActionEvent event) {
-        ObservableList<EmailMessageBean> data = getModelAccess().getSelectedFolder().getData();
-        EmailAccountBean emailAccountBean = new EmailAccountBean("myemail", "REDACTED");
-        emailAccountBean.addEmailsToData(data);
+        Service<Void> emailService = new Service<Void>() {
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    @Override
+                    protected Void call() throws Exception {
+                        ObservableList<EmailMessageBean> data = getModelAccess().getSelectedFolder().getData();
+                        EmailAccountBean emailAccountBean = new EmailAccountBean("myemail", "REDACTED");
+                        emailAccountBean.addEmailsToData(data);
+                        return null;
+                    }
+                };
+            }
+        };
+        emailService.start();
     }
 
     public MainController(ModelAccess modelAccess) {
