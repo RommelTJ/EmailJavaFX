@@ -1,9 +1,11 @@
 package com.rommelrico.controller;
 
+import com.rommelrico.model.EmailAccountBean;
 import com.rommelrico.model.EmailMessageBean;
 import com.rommelrico.model.folder.EmailFolderBean;
 import com.rommelrico.model.table.BoldableRowFactory;
 import com.rommelrico.view.ViewFactory;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -47,7 +49,9 @@ public class MainController extends AbstractController implements Initializable 
 
     @FXML
     void button1Action(ActionEvent event) {
-        System.out.println("Pushed button1");
+        ObservableList<EmailMessageBean> data = getModelAccess().getSelectedFolder().getData();
+        EmailAccountBean emailAccountBean = new EmailAccountBean("myemail", "REDACTED");
+        emailAccountBean.addEmailsToData(data);
     }
 
     public MainController(ModelAccess modelAccess) {
