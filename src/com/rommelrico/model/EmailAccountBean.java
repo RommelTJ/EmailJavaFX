@@ -51,7 +51,7 @@ public class EmailAccountBean {
     // Testing
     public void addEmailsToData(ObservableList<EmailMessageBean> data) {
         try {
-            Folder folder = store.getFolder("Home");
+            Folder folder = store.getFolder("Inbox");
             folder.open(Folder.READ_ONLY);
             for (int i = folder.getMessageCount(); i > 0; i--) {
                 Message message = folder.getMessage(i);

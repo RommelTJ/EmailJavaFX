@@ -1,10 +1,13 @@
 package com.rommelrico.controller;
 
+import com.rommelrico.model.EmailAccountBean;
 import com.rommelrico.model.EmailMessageBean;
-import com.rommelrico.model.SampleData;
 import com.rommelrico.model.folder.EmailFolderBean;
 import com.rommelrico.model.table.BoldableRowFactory;
 import com.rommelrico.view.ViewFactory;
+import javafx.collections.ObservableList;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,7 +17,6 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.web.WebView;
@@ -33,7 +35,6 @@ public class MainController extends AbstractController implements Initializable 
 
     @FXML
     private TreeView<String> emailFoldersTree;
-    private SampleData sampleData = new SampleData();
     private MenuItem showDetails = new MenuItem("show details");
 
     @FXML
@@ -50,7 +51,21 @@ public class MainController extends AbstractController implements Initializable 
 
     @FXML
     void button1Action(ActionEvent event) {
-        System.out.println("Pushed button1");
+        Service<Void> emailService = new Service<Void>() {
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    @Override
+                    protected Void call() throws Exception {
+                        ObservableList<EmailMessageBean> data = getModelAccess().getSelectedFolder().getData();
+                        EmailAccountBean emailAccountBean = new EmailAccountBean("myemail", "REDACTED");
+                        emailAccountBean.addEmailsToData(data);
+                        return null;
+                    }
+                };
+            }
+        };
+        emailService.start();
     }
 
     public MainController(ModelAccess modelAccess) {
@@ -92,10 +107,6 @@ public class MainController extends AbstractController implements Initializable 
         sent.getChildren().add(new EmailFolderBean<>("Subfolder2", "Subfolder2Complete"));
         EmailFolderBean<String> spam = new EmailFolderBean<>("Spam", "CompleteSpam");
         rommelAccount.getChildren().addAll(inbox, sent, spam);
-
-        inbox.getData().addAll(SampleData.Inbox);
-        sent.getData().addAll(SampleData.Sent);
-        spam.getData().addAll(SampleData.Spam);
 
         emailTableView.setContextMenu(new ContextMenu(showDetails));
 
