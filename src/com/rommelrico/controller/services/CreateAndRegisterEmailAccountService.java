@@ -2,9 +2,7 @@ package com.rommelrico.controller.services;
 
 import com.rommelrico.model.EmailAccountBean;
 import com.rommelrico.model.EmailConstants;
-import com.rommelrico.model.EmailMessageBean;
 import com.rommelrico.model.folder.EmailFolderBean;
-import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
