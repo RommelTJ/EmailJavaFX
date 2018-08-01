@@ -9,7 +9,8 @@ import javafx.concurrent.Task;
 public class CreateAndRegisterEmailAccountService extends Service<Integer> {
 
     private String emailAddress;
-    private String password;
+    private String emailAccountName;
+    private String emailAccountPassword;
     private EmailFolderBean<String> folderRoot;
 
     @Override
@@ -17,9 +18,9 @@ public class CreateAndRegisterEmailAccountService extends Service<Integer> {
         return new Task<Integer>() {
             @Override
             protected Integer call() throws Exception {
-                EmailAccountBean emailAccountBean = new EmailAccountBean(emailAddress, password);
+                EmailAccountBean emailAccountBean = new EmailAccountBean(emailAccountName, emailAccountPassword);
                 if (emailAccountBean.getLoginState() == EmailConstants.LOGIN_STATE_SUCCEEDED) {
-                    EmailFolderBean<String> emailFolderBean = new EmailFolderBean<String>(emailAddress);
+                    EmailFolderBean<String> emailFolderBean = new EmailFolderBean<>(emailAddress);
                     folderRoot.getChildren().add(emailFolderBean);
                 }
                 return emailAccountBean.getLoginState();
