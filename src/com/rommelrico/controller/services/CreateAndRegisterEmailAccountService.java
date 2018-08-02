@@ -13,6 +13,13 @@ public class CreateAndRegisterEmailAccountService extends Service<Integer> {
     private String emailAccountPassword;
     private EmailFolderBean<String> folderRoot;
 
+    public CreateAndRegisterEmailAccountService(String emailAddress, String emailAccountName, String emailAccountPassword, EmailFolderBean<String> folderRoot) {
+        this.emailAddress = emailAddress;
+        this.emailAccountName = emailAccountName;
+        this.emailAccountPassword = emailAccountPassword;
+        this.folderRoot = folderRoot;
+    }
+
     @Override
     protected Task<Integer> createTask() {
         return new Task<Integer>() {
