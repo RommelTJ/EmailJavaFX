@@ -51,23 +51,7 @@ public class MainController extends AbstractController implements Initializable 
     private TableColumn<EmailMessageBean, String> sizeCol;
 
     @FXML
-    void button1Action(ActionEvent event) {
-        Service<Void> emailService = new Service<Void>() {
-            @Override
-            protected Task<Void> createTask() {
-                return new Task<Void>() {
-                    @Override
-                    protected Void call() throws Exception {
-                        ObservableList<EmailMessageBean> data = getModelAccess().getSelectedFolder().getData();
-                        EmailAccountBean emailAccountBean = new EmailAccountBean("myemail", "REDACTED");
-                        emailAccountBean.addEmailsToData(data);
-                        return null;
-                    }
-                };
-            }
-        };
-        emailService.start();
-    }
+    void button1Action(ActionEvent event) { }
 
     public MainController(ModelAccess modelAccess) {
         super(modelAccess);
