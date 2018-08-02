@@ -101,6 +101,7 @@ public class MainController extends AbstractController implements Initializable 
 
         CreateAndRegisterEmailAccountService createAndRegisterEmailAccountService =
                 new CreateAndRegisterEmailAccountService("me@rommelrico.com", "myemail", "REDACTED", root);
+        createAndRegisterEmailAccountService.start();
 
         emailTableView.setContextMenu(new ContextMenu(showDetails));
 
