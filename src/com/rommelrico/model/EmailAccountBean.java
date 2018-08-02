@@ -40,7 +40,6 @@ public class EmailAccountBean {
         try {
             this.store = session.getStore();
             store.connect(properties.getProperty("incomingHost"), emailAddress, password);
-            System.out.println("EmailAccountBean constructed successfully!");
             loginState = EmailConstants.LOGIN_STATE_SUCCEEDED;
         } catch (Exception e) {
             e.printStackTrace();
@@ -61,7 +60,6 @@ public class EmailAccountBean {
                         message.getSize(),
                         "",
                         message.getFlags().contains(Flags.Flag.SEEN));
-                System.out.println("Got: " + email);
                 data.add(email);
             }
         } catch (MessagingException e) {
