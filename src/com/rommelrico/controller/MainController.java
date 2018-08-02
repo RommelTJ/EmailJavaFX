@@ -1,5 +1,6 @@
 package com.rommelrico.controller;
 
+import com.rommelrico.controller.services.CreateAndRegisterEmailAccountService;
 import com.rommelrico.model.EmailAccountBean;
 import com.rommelrico.model.EmailMessageBean;
 import com.rommelrico.model.folder.EmailFolderBean;
@@ -97,6 +98,10 @@ public class MainController extends AbstractController implements Initializable 
         EmailFolderBean<String> root = new EmailFolderBean<>("");
         emailFoldersTree.setRoot(root);
         emailFoldersTree.setShowRoot(false);
+
+        CreateAndRegisterEmailAccountService createAndRegisterEmailAccountService =
+                new CreateAndRegisterEmailAccountService("me@rommelrico.com", "myemail", "REDACTED", root);
+
         emailTableView.setContextMenu(new ContextMenu(showDetails));
 
         emailFoldersTree.setOnMouseClicked(e -> {
