@@ -99,9 +99,13 @@ public class MainController extends AbstractController implements Initializable 
         emailFoldersTree.setRoot(root);
         emailFoldersTree.setShowRoot(false);
 
-        CreateAndRegisterEmailAccountService createAndRegisterEmailAccountService =
+        CreateAndRegisterEmailAccountService createAndRegisterEmailAccountService1 =
                 new CreateAndRegisterEmailAccountService("me@rommelrico.com", "myemail", "REDACTED", root);
-        createAndRegisterEmailAccountService.start();
+        createAndRegisterEmailAccountService1.start();
+
+        CreateAndRegisterEmailAccountService createAndRegisterEmailAccountService2 =
+                new CreateAndRegisterEmailAccountService("rommel@romzalabs.com", "romzalabs", "REDACTED", root);
+        createAndRegisterEmailAccountService2.start();
 
         emailTableView.setContextMenu(new ContextMenu(showDetails));
 
