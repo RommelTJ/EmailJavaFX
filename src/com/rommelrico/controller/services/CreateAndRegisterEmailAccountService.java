@@ -13,6 +13,13 @@ public class CreateAndRegisterEmailAccountService extends Service<Integer> {
     private String emailAccountPassword;
     private EmailFolderBean<String> folderRoot;
 
+    public CreateAndRegisterEmailAccountService(String emailAddress, String emailAccountName, String emailAccountPassword, EmailFolderBean<String> folderRoot) {
+        this.emailAddress = emailAddress;
+        this.emailAccountName = emailAccountName;
+        this.emailAccountPassword = emailAccountPassword;
+        this.folderRoot = folderRoot;
+    }
+
     @Override
     protected Task<Integer> createTask() {
         return new Task<Integer>() {
@@ -22,6 +29,8 @@ public class CreateAndRegisterEmailAccountService extends Service<Integer> {
                 if (emailAccountBean.getLoginState() == EmailConstants.LOGIN_STATE_SUCCEEDED) {
                     EmailFolderBean<String> emailFolderBean = new EmailFolderBean<>(emailAddress);
                     folderRoot.getChildren().add(emailFolderBean);
+                    FetchFoldersService fetchFoldersService = new FetchFoldersService(emailFolderBean, emailAccountBean);
+                    fetchFoldersService.start();
                 }
                 return emailAccountBean.getLoginState();
             }

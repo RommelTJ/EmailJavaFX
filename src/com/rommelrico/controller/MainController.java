@@ -1,5 +1,6 @@
 package com.rommelrico.controller;
 
+import com.rommelrico.controller.services.CreateAndRegisterEmailAccountService;
 import com.rommelrico.model.EmailAccountBean;
 import com.rommelrico.model.EmailMessageBean;
 import com.rommelrico.model.folder.EmailFolderBean;
@@ -50,23 +51,7 @@ public class MainController extends AbstractController implements Initializable 
     private TableColumn<EmailMessageBean, String> sizeCol;
 
     @FXML
-    void button1Action(ActionEvent event) {
-        Service<Void> emailService = new Service<Void>() {
-            @Override
-            protected Task<Void> createTask() {
-                return new Task<Void>() {
-                    @Override
-                    protected Void call() throws Exception {
-                        ObservableList<EmailMessageBean> data = getModelAccess().getSelectedFolder().getData();
-                        EmailAccountBean emailAccountBean = new EmailAccountBean("myemail", "REDACTED");
-                        emailAccountBean.addEmailsToData(data);
-                        return null;
-                    }
-                };
-            }
-        };
-        emailService.start();
-    }
+    void button1Action(ActionEvent event) { }
 
     public MainController(ModelAccess modelAccess) {
         super(modelAccess);
@@ -98,15 +83,13 @@ public class MainController extends AbstractController implements Initializable 
         emailFoldersTree.setRoot(root);
         emailFoldersTree.setShowRoot(false);
 
-        EmailFolderBean<String> rommelAccount = new EmailFolderBean<>("me@rommelrico.com");
-        root.getChildren().add(rommelAccount);
+        CreateAndRegisterEmailAccountService createAndRegisterEmailAccountService1 =
+                new CreateAndRegisterEmailAccountService("me@rommelrico.com", "myemail", "REDACTED", root);
+        createAndRegisterEmailAccountService1.start();
 
-        EmailFolderBean<String> inbox = new EmailFolderBean<>("Inbox", "CompleteInbox");
-        EmailFolderBean<String> sent = new EmailFolderBean<>("Sent", "CompleteSent");
-        sent.getChildren().add(new EmailFolderBean<>("Subfolder1", "Subfolder1Complete"));
-        sent.getChildren().add(new EmailFolderBean<>("Subfolder2", "Subfolder2Complete"));
-        EmailFolderBean<String> spam = new EmailFolderBean<>("Spam", "CompleteSpam");
-        rommelAccount.getChildren().addAll(inbox, sent, spam);
+        CreateAndRegisterEmailAccountService createAndRegisterEmailAccountService2 =
+                new CreateAndRegisterEmailAccountService("rommel@romzalabs.com", "romzalabs", "REDACTED", root);
+        createAndRegisterEmailAccountService2.start();
 
         emailTableView.setContextMenu(new ContextMenu(showDetails));
 
