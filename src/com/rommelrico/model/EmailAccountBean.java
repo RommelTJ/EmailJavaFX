@@ -47,27 +47,6 @@ public class EmailAccountBean {
         }
     } // end EmailAccountBean constructor.
 
-    // Testing
-    public void addEmailsToData(ObservableList<EmailMessageBean> data) {
-        try {
-            Folder folder = store.getFolder("Inbox");
-            folder.open(Folder.READ_ONLY);
-            for (int i = folder.getMessageCount(); i > 0; i--) {
-                Message message = folder.getMessage(i);
-                EmailMessageBean email = new EmailMessageBean(
-                        message.getSubject(),
-                        message.getFrom()[0].toString(),
-                        message.getSize(),
-                        "",
-                        message.getFlags().contains(Flags.Flag.SEEN));
-                data.add(email);
-            }
-        } catch (MessagingException e) {
-            e.printStackTrace();
-        }
-
-    }
-
     public String getEmailAddress() {
         return emailAddress;
     }
