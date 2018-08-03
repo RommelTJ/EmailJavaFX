@@ -29,10 +29,18 @@ public class FetchFoldersService extends Service<Void> {
                         foldersRoot.getChildren().add(item);
                         item.setExpanded(true);
 
+                        FetchMessagesOnFolderService fetchMessagesOnFolderService =
+                                new FetchMessagesOnFolderService(item, folder);
+                        fetchMessagesOnFolderService.start();
+
                         Folder[] subFolders = folder.list();
                         for (Folder subFolder : subFolders) {
                             EmailFolderBean<String> subItem = new EmailFolderBean<>(subFolder.getName(), subFolder.getFullName());
                             item.getChildren().add(subItem);
+
+                            FetchMessagesOnFolderService fetchMessagesOnSubfolderService =
+                                    new FetchMessagesOnFolderService(subItem, subFolder);
+                            fetchMessagesOnSubfolderService.start();
                         }
                     }
                 }

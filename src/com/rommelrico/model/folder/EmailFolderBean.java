@@ -6,6 +6,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TreeItem;
 
+import javax.mail.Flags;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+
 public class EmailFolderBean<T> extends TreeItem<String> {
 
     private boolean topElement = false;
@@ -51,9 +55,16 @@ public class EmailFolderBean<T> extends TreeItem<String> {
         updateValue();
     }
 
-    public void addEmail(EmailMessageBean messageBean) {
-        data.add(messageBean);
-        if (messageBean.isRead()) {
+    public void addEmail(Message message) throws MessagingException {
+        boolean isRead = message.getFlags().contains(Flags.Flag.SEEN);
+        EmailMessageBean emailMessageBean = new EmailMessageBean(
+                message.getSubject(),
+                message.getFrom()[0].toString(),
+                message.getSize(),
+                "",
+                isRead);
+        data.add(emailMessageBean);
+        if (!isRead) {
             incrementUnreadMessagesCount(1);
         }
     }
