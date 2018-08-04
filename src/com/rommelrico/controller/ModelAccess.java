@@ -3,10 +3,15 @@ package com.rommelrico.controller;
 import com.rommelrico.model.EmailMessageBean;
 import com.rommelrico.model.folder.EmailFolderBean;
 
+import javax.mail.Folder;
+import java.util.ArrayList;
+import java.util.List;
+
 public class ModelAccess {
 
     private EmailMessageBean selectedMessage;
     private EmailFolderBean<String> selectedFolder;
+    private List<Folder> folderList = new ArrayList<>();
 
     public EmailMessageBean getSelectedMessage() {
         return selectedMessage;
@@ -24,4 +29,11 @@ public class ModelAccess {
         this.selectedFolder = selectedFolder;
     }
 
+    public List<Folder> getFolderList() {
+        return folderList;
+    }
+
+    public void addFolder(Folder folder) {
+        folderList.add(folder);
+    }
 }
