@@ -1,5 +1,6 @@
 package com.rommelrico.controller.services;
 
+import com.rommelrico.controller.ModelAccess;
 import com.rommelrico.model.EmailAccountBean;
 import com.rommelrico.model.EmailConstants;
 import com.rommelrico.model.folder.EmailFolderBean;
@@ -12,12 +13,18 @@ public class CreateAndRegisterEmailAccountService extends Service<Integer> {
     private String emailAccountName;
     private String emailAccountPassword;
     private EmailFolderBean<String> folderRoot;
+    private ModelAccess modelAccess;
 
-    public CreateAndRegisterEmailAccountService(String emailAddress, String emailAccountName, String emailAccountPassword, EmailFolderBean<String> folderRoot) {
+    public CreateAndRegisterEmailAccountService(String emailAddress,
+                                                String emailAccountName,
+                                                String emailAccountPassword,
+                                                EmailFolderBean<String> folderRoot,
+                                                ModelAccess modelAccess) {
         this.emailAddress = emailAddress;
         this.emailAccountName = emailAccountName;
         this.emailAccountPassword = emailAccountPassword;
         this.folderRoot = folderRoot;
+        this.modelAccess = modelAccess;
     }
 
     @Override
@@ -29,7 +36,7 @@ public class CreateAndRegisterEmailAccountService extends Service<Integer> {
                 if (emailAccountBean.getLoginState() == EmailConstants.LOGIN_STATE_SUCCEEDED) {
                     EmailFolderBean<String> emailFolderBean = new EmailFolderBean<>(emailAddress);
                     folderRoot.getChildren().add(emailFolderBean);
-                    FetchFoldersService fetchFoldersService = new FetchFoldersService(emailFolderBean, emailAccountBean);
+                    FetchFoldersService fetchFoldersService = new FetchFoldersService(emailFolderBean, emailAccountBean, modelAccess);
                     fetchFoldersService.start();
                 }
                 return emailAccountBean.getLoginState();

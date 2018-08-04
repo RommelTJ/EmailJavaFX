@@ -1,5 +1,6 @@
 package com.rommelrico.controller.services;
 
+import com.rommelrico.controller.ModelAccess;
 import com.rommelrico.model.EmailAccountBean;
 import com.rommelrico.model.folder.EmailFolderBean;
 import javafx.concurrent.Service;
@@ -15,10 +16,14 @@ public class FetchFoldersService extends Service<Void> {
 
     private EmailFolderBean<String> foldersRoot;
     private EmailAccountBean emailAccountBean;
+    private ModelAccess modelAccess;
 
-    public FetchFoldersService(EmailFolderBean<String> foldersRoot, EmailAccountBean emailAccountBean) {
+    public FetchFoldersService(EmailFolderBean<String> foldersRoot,
+                               EmailAccountBean emailAccountBean,
+                               ModelAccess modelAccess) {
         this.foldersRoot = foldersRoot;
         this.emailAccountBean = emailAccountBean;
+        this.modelAccess = modelAccess;
     }
 
     @Override
