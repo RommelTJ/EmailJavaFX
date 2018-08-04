@@ -1,6 +1,7 @@
 package com.rommelrico.controller;
 
 import com.rommelrico.controller.services.CreateAndRegisterEmailAccountService;
+import com.rommelrico.controller.services.FolderUpdaterService;
 import com.rommelrico.model.EmailAccountBean;
 import com.rommelrico.model.EmailMessageBean;
 import com.rommelrico.model.folder.EmailFolderBean;
@@ -59,6 +60,9 @@ public class MainController extends AbstractController implements Initializable 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        FolderUpdaterService folderUpdaterService = new FolderUpdaterService(getModelAccess().getFolderList());
+        folderUpdaterService.start();
+
         emailTableView.setRowFactory(e -> new BoldableRowFactory<>());
         ViewFactory viewFactory = ViewFactory.defaultFactory;
 
