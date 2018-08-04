@@ -22,9 +22,11 @@ public class FolderUpdaterService extends Service<Void> {
                 for (;;) {
                     try {
                         Thread.sleep(10000);
-                        for (Folder folder : folderList) {
-                            if (folder.getType() != Folder.HOLDS_FOLDERS && folder.isOpen()) {
-                                folder.getMessageCount();
+                        if (FetchFoldersService.noServicesActive()) {
+                            for (Folder folder : folderList) {
+                                if (folder.getType() != Folder.HOLDS_FOLDERS && folder.isOpen()) {
+                                    folder.getMessageCount();
+                                }
                             }
                         }
                     } catch (Exception e) {
