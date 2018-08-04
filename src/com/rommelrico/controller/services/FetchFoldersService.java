@@ -17,6 +17,7 @@ public class FetchFoldersService extends Service<Void> {
     private EmailFolderBean<String> foldersRoot;
     private EmailAccountBean emailAccountBean;
     private ModelAccess modelAccess;
+    private static int NUMBER_OF_FETCHFOLDERSSERVICES_ACTIVE = 0;
 
     public FetchFoldersService(EmailFolderBean<String> foldersRoot,
                                EmailAccountBean emailAccountBean,
@@ -24,6 +25,10 @@ public class FetchFoldersService extends Service<Void> {
         this.foldersRoot = foldersRoot;
         this.emailAccountBean = emailAccountBean;
         this.modelAccess = modelAccess;
+
+        this.setOnSucceeded(e -> {
+            NUMBER_OF_FETCHFOLDERSSERVICES_ACTIVE--;
+        });
     }
 
     @Override
@@ -31,6 +36,7 @@ public class FetchFoldersService extends Service<Void> {
         return new Task<Void>() {
             @Override
             protected Void call() throws Exception {
+                NUMBER_OF_FETCHFOLDERSSERVICES_ACTIVE++;
                 if (emailAccountBean != null) {
                     Folder[] folders = emailAccountBean.getStore().getDefaultFolder().list();
                     for (Folder folder : folders) {
@@ -78,6 +84,10 @@ public class FetchFoldersService extends Service<Void> {
                 }
             }
         });
+    }
+
+    public static boolean noServicesActive() {
+        return NUMBER_OF_FETCHFOLDERSSERVICES_ACTIVE == 0;
     }
 
 }
