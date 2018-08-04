@@ -6,6 +6,10 @@ import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
 import javax.mail.Folder;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.event.MessageCountAdapter;
+import javax.mail.event.MessageCountEvent;
 
 public class FetchFoldersService extends Service<Void> {
 
@@ -47,6 +51,24 @@ public class FetchFoldersService extends Service<Void> {
                 return null;
             }
         };
+    }
+
+    private void addMessageListenerToFolder(Folder folder, EmailFolderBean<String> item) {
+        folder.addMessageCountListener(new MessageCountAdapter() {
+            @Override
+            public void messagesAdded(MessageCountEvent e) {
+                super.messagesAdded(e);
+                for (int i = 0; i < e.getMessages().length; i++) {
+                    Message currentMessage = null;
+                    try {
+                        currentMessage = folder.getMessage(folder.getMessageCount() - i);
+                        item.addEmail(0, currentMessage);
+                    } catch (MessagingException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 
 }
