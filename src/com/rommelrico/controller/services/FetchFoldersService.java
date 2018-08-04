@@ -34,6 +34,7 @@ public class FetchFoldersService extends Service<Void> {
                 if (emailAccountBean != null) {
                     Folder[] folders = emailAccountBean.getStore().getDefaultFolder().list();
                     for (Folder folder : folders) {
+                        modelAccess.addFolder(folder);
                         EmailFolderBean<String> item = new EmailFolderBean<>(folder.getName(), folder.getFullName());
                         foldersRoot.getChildren().add(item);
                         item.setExpanded(true);
@@ -45,6 +46,7 @@ public class FetchFoldersService extends Service<Void> {
 
                         Folder[] subFolders = folder.list();
                         for (Folder subFolder : subFolders) {
+                            modelAccess.addFolder(subFolder);
                             EmailFolderBean<String> subItem = new EmailFolderBean<>(subFolder.getName(), subFolder.getFullName());
                             item.getChildren().add(subItem);
                             addMessageListenerToFolder(subFolder, subItem);
