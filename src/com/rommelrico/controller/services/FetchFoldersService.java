@@ -86,7 +86,7 @@ public class FetchFoldersService extends Service<Void> {
         });
     }
 
-    private boolean noServicesActive() {
+    private static boolean noServicesActive() {
         return NUMBER_OF_FETCHFOLDERSSERVICES_ACTIVE == 0;
     }
 
