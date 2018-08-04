@@ -29,7 +29,7 @@ public class FetchMessagesOnFolderService extends Service<Void> {
                 int folderSize = folder.getMessageCount();
                 for (int i = folderSize; i > 0; i--) {
                     Message currentMessage = folder.getMessage(i);
-                    emailFolderBean.addEmail(currentMessage);
+                    emailFolderBean.addEmail(-1, currentMessage);
                 }
 
                 return null;
