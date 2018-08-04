@@ -32,6 +32,7 @@ public class FetchFoldersService extends Service<Void> {
                         EmailFolderBean<String> item = new EmailFolderBean<>(folder.getName(), folder.getFullName());
                         foldersRoot.getChildren().add(item);
                         item.setExpanded(true);
+                        addMessageListenerToFolder(folder, item);
 
                         FetchMessagesOnFolderService fetchMessagesOnFolderService =
                                 new FetchMessagesOnFolderService(item, folder);
@@ -41,6 +42,7 @@ public class FetchFoldersService extends Service<Void> {
                         for (Folder subFolder : subFolders) {
                             EmailFolderBean<String> subItem = new EmailFolderBean<>(subFolder.getName(), subFolder.getFullName());
                             item.getChildren().add(subItem);
+                            addMessageListenerToFolder(subFolder, subItem);
 
                             FetchMessagesOnFolderService fetchMessagesOnSubfolderService =
                                     new FetchMessagesOnFolderService(subItem, subFolder);
