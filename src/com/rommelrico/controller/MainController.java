@@ -2,14 +2,12 @@ package com.rommelrico.controller;
 
 import com.rommelrico.controller.services.CreateAndRegisterEmailAccountService;
 import com.rommelrico.controller.services.FolderUpdaterService;
-import com.rommelrico.model.EmailAccountBean;
+import com.rommelrico.controller.services.MessageRendererService;
 import com.rommelrico.model.EmailMessageBean;
 import com.rommelrico.model.folder.EmailFolderBean;
 import com.rommelrico.model.table.BoldableRowFactory;
 import com.rommelrico.view.ViewFactory;
-import javafx.collections.ObservableList;
-import javafx.concurrent.Service;
-import javafx.concurrent.Task;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -54,12 +52,16 @@ public class MainController extends AbstractController implements Initializable 
     @FXML
     void button1Action(ActionEvent event) { }
 
+    private MessageRendererService messageRendererService;
+
     public MainController(ModelAccess modelAccess) {
         super(modelAccess);
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        messageRendererService = new MessageRendererService(messageRendererId.getEngine());
+
         FolderUpdaterService folderUpdaterService = new FolderUpdaterService(getModelAccess().getFolderList());
         folderUpdaterService.start();
 
@@ -120,7 +122,8 @@ public class MainController extends AbstractController implements Initializable 
             EmailMessageBean message = emailTableView.getSelectionModel().getSelectedItem();
             if (message != null) {
                 getModelAccess().setSelectedMessage(message);
-                messageRendererId.getEngine().loadContent(message.getContent());
+                messageRendererService.setMessageToRender(message);
+                Platform.runLater(messageRendererService); // Happens on application thread.
             }
         });
 
