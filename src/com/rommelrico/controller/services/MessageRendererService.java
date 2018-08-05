@@ -17,7 +17,11 @@ public class MessageRendererService extends Service<Void> {
 
     private EmailMessageBean messageToRender;
     private WebEngine messageRendererEngine;
-    private StringBuffer sb;
+    private StringBuffer sb = new StringBuffer();
+
+    public MessageRendererService(WebEngine messageRendererEngine) {
+        this.messageRendererEngine = messageRendererEngine;
+    }
 
     @Override
     protected Task<Void> createTask() {
