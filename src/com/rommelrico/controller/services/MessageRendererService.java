@@ -1,20 +1,34 @@
 package com.rommelrico.controller.services;
 
 import com.rommelrico.model.EmailMessageBean;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.scene.web.WebEngine;
 
 import javax.mail.BodyPart;
+import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.internet.MimeBodyPart;
 import java.io.IOException;
 
-public class MessageRendererService {
+public class MessageRendererService extends Service<Void> {
 
     private EmailMessageBean messageToRender;
     private WebEngine messageRendererEngine;
     private StringBuffer sb;
+
+    @Override
+    protected Task<Void> createTask() {
+        return new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                renderMessage();
+                return null;
+            }
+        };
+    } // end createTask
 
     private void renderMessage() {
         sb.setLength(0); // clear the StringBuffer
@@ -50,6 +64,7 @@ public class MessageRendererService {
                     }
                 }
             }
+            messageRendererEngine.loadContent(sb.toString());
         } catch (MessagingException | IOException e) {
             e.printStackTrace();
         }
