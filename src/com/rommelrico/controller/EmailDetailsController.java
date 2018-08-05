@@ -1,5 +1,6 @@
 package com.rommelrico.controller;
 
+import com.rommelrico.model.EmailMessageBean;
 import com.rommelrico.view.ViewFactory;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,9 +31,9 @@ public class EmailDetailsController extends AbstractController implements Initia
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        subjectLabel.setText("Subject: " + getModelAccess().getSelectedMessage().getSubject());
-        senderLabel.setText("Sender: " + getModelAccess().getSelectedMessage().getSender());
-        webView.getEngine().loadContent(getModelAccess().getSelectedMessage().getContent());
+        EmailMessageBean selectedMessage = getModelAccess().getSelectedMessage();
+        subjectLabel.setText("Subject: " + selectedMessage.getSubject());
+        senderLabel.setText("Sender: " + selectedMessage.getSender());
     }
 
     @FXML
