@@ -77,10 +77,13 @@ public class MessageRendererService extends Service<Void> {
                     }
                 }
             }
-            messageRendererEngine.loadContent(sb.toString());
         } catch (MessagingException | IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void showMessage() {
+        messageRendererEngine.loadContent(sb.toString());
     }
 
 }
