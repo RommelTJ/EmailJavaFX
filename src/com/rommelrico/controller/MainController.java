@@ -123,7 +123,7 @@ public class MainController extends AbstractController implements Initializable 
             if (message != null) {
                 getModelAccess().setSelectedMessage(message);
                 messageRendererService.setMessageToRender(message);
-                Platform.runLater(messageRendererService); // Happens on application thread.
+                messageRendererService.restart();
             }
         });
 

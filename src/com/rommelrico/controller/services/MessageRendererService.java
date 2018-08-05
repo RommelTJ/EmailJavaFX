@@ -6,14 +6,13 @@ import javafx.concurrent.Task;
 import javafx.scene.web.WebEngine;
 
 import javax.mail.BodyPart;
-import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.internet.MimeBodyPart;
 import java.io.IOException;
 
-public class MessageRendererService extends Service<Void> implements Runnable {
+public class MessageRendererService extends Service<Void> {
 
     private EmailMessageBean messageToRender;
     private WebEngine messageRendererEngine;
@@ -36,6 +35,9 @@ public class MessageRendererService extends Service<Void> implements Runnable {
 
     public void setMessageToRender(EmailMessageBean messageToRender) {
         this.messageToRender = messageToRender;
+        this.setOnSucceeded(e -> {
+            showMessage();
+        });
     }
 
     private void renderMessage() {
@@ -78,14 +80,13 @@ public class MessageRendererService extends Service<Void> implements Runnable {
                     }
                 }
             }
-            messageRendererEngine.loadContent(sb.toString());
         } catch (MessagingException | IOException e) {
             e.printStackTrace();
         }
     }
 
-    @Override
-    public void run() {
-        renderMessage();
+    private void showMessage() {
+        messageRendererEngine.loadContent(sb.toString());
     }
+
 }
