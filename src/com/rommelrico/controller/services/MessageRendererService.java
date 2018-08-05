@@ -34,6 +34,10 @@ public class MessageRendererService extends Service<Void> {
         };
     } // end createTask
 
+    public void setMessageToRender(EmailMessageBean messageToRender) {
+        this.messageToRender = messageToRender;
+    }
+
     private void renderMessage() {
         sb.setLength(0); // clear the StringBuffer
         Message message = messageToRender.getMessageReference();
