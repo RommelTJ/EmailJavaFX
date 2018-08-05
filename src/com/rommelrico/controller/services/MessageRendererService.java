@@ -35,6 +35,9 @@ public class MessageRendererService extends Service<Void> {
 
     public void setMessageToRender(EmailMessageBean messageToRender) {
         this.messageToRender = messageToRender;
+        this.setOnSucceeded(e -> {
+            showMessage();
+        });
     }
 
     private void renderMessage() {
