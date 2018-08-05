@@ -3,6 +3,7 @@ package com.rommelrico.model;
 import com.rommelrico.model.table.AbstractTableItem;
 import javafx.beans.property.SimpleStringProperty;
 
+import javax.mail.Message;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,16 +12,16 @@ public class EmailMessageBean extends AbstractTableItem {
     private SimpleStringProperty sender;
     private SimpleStringProperty subject;
     private SimpleStringProperty size;
-    private String content;
+    private Message messageReference;
 
     public static Map<String, Integer> formattedValues = new HashMap<String, Integer>();
 
-    public EmailMessageBean(String Subject, String Sender, int size, String Content, boolean isRead) {
+    public EmailMessageBean(String Subject, String Sender, int size, Message messageReference, boolean isRead) {
         super(isRead);
         this.subject = new SimpleStringProperty(Subject);
         this.sender = new SimpleStringProperty(Sender);
         this.size = new SimpleStringProperty(formatSize(size));
-        this.content = Content;
+        this.messageReference = messageReference;
     }
 
     public String getSender() {
@@ -47,8 +48,8 @@ public class EmailMessageBean extends AbstractTableItem {
         return size;
     }
 
-    public String getContent(){
-        return content;
+    public Message getMessageReference() {
+        return messageReference;
     }
 
     private String formatSize(int size) {

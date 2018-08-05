@@ -120,7 +120,6 @@ public class MainController extends AbstractController implements Initializable 
             EmailMessageBean message = emailTableView.getSelectionModel().getSelectedItem();
             if (message != null) {
                 getModelAccess().setSelectedMessage(message);
-                messageRendererId.getEngine().loadContent(message.getContent());
             }
         });
 
