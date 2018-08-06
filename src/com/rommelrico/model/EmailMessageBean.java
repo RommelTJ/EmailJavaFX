@@ -81,6 +81,11 @@ public class EmailMessageBean extends AbstractTableItem {
         return attachmentList.size() > 0;
     }
 
+    public void clearAttachments() {
+        attachmentList.clear();
+        attachmentNames.setLength(0);
+    }
+
     private String formatSize(int size) {
         String returnValue;
 

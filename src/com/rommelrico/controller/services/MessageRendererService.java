@@ -42,6 +42,7 @@ public class MessageRendererService extends Service<Void> {
 
     private void renderMessage() {
         sb.setLength(0); // clear the StringBuffer
+        messageToRender.clearAttachments();
         Message message = messageToRender.getMessageReference();
         try {
             String messageType = message.getContentType();
