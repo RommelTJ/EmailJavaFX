@@ -66,6 +66,7 @@ public class MessageRendererService extends Service<Void> {
                         }
                     } else if (contentType.toLowerCase().contains("application")) {
                         MimeBodyPart mbp = (MimeBodyPart)bp;
+                        messageToRender.addAttachment(mbp);
                         // Sometimes the text content of the message is encapsulated in another multipart,
                         // so we have to iterate again through it.
                     } else if (bp.getContentType().contains("multipart")) {
