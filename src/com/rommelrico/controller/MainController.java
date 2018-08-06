@@ -72,6 +72,8 @@ public class MainController extends AbstractController implements Initializable 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        downAttachProgress.setVisible(false);
+        downAttachLabel.setVisible(false);
         saveAttachmentsService = new SaveAttachmentsService(downAttachProgress, downAttachLabel);
         messageRendererService = new MessageRendererService(messageRendererId.getEngine());
 

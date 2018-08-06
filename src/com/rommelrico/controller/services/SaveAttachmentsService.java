@@ -16,7 +16,6 @@ public class SaveAttachmentsService extends Service<Void> {
     private Label label;
 
     public SaveAttachmentsService(ProgressBar progress, Label label) {
-        showVisuals(false);
         this.progress = progress;
         this.label = label;
 
