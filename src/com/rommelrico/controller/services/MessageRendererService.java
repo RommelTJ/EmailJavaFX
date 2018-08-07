@@ -42,6 +42,7 @@ public class MessageRendererService extends Service<Void> {
 
     private void renderMessage() {
         sb.setLength(0); // clear the StringBuffer
+        messageToRender.clearAttachments();
         Message message = messageToRender.getMessageReference();
         try {
             String messageType = message.getContentType();
@@ -64,8 +65,11 @@ public class MessageRendererService extends Service<Void> {
                         if (sb.length()== 0) {
                             sb.append(bp.getContent().toString());
                         }
-                    } else if (contentType.toLowerCase().contains("application")) {
+                    } else if (contentType.toLowerCase().contains("application")
+                            || contentType.toLowerCase().contains("image")
+                            || contentType.toLowerCase().contains("audio")) {
                         MimeBodyPart mbp = (MimeBodyPart)bp;
+                        messageToRender.addAttachment(mbp);
                         // Sometimes the text content of the message is encapsulated in another multipart,
                         // so we have to iterate again through it.
                     } else if (bp.getContentType().contains("multipart")) {

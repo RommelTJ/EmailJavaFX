@@ -4,7 +4,11 @@ import com.rommelrico.model.table.AbstractTableItem;
 import javafx.beans.property.SimpleStringProperty;
 
 import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeBodyPart;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class EmailMessageBean extends AbstractTableItem {
@@ -13,6 +17,10 @@ public class EmailMessageBean extends AbstractTableItem {
     private SimpleStringProperty subject;
     private SimpleStringProperty size;
     private Message messageReference;
+
+    // Attachment properties
+    private List<MimeBodyPart> attachmentList = new ArrayList<MimeBodyPart>();
+    private StringBuffer attachmentNames = new StringBuffer();
 
     public static Map<String, Integer> formattedValues = new HashMap<String, Integer>();
 
@@ -50,6 +58,32 @@ public class EmailMessageBean extends AbstractTableItem {
 
     public Message getMessageReference() {
         return messageReference;
+    }
+
+    public List<MimeBodyPart> getAttachmentList() {
+        return attachmentList;
+    }
+
+    public String getAttachmentNames() {
+        return attachmentNames.toString();
+    }
+
+    public void addAttachment(MimeBodyPart mbp) {
+        attachmentList.add(mbp);
+        try {
+            attachmentNames.append(mbp.getFileName() + "; ");
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean hasAttachments() {
+        return attachmentList.size() > 0;
+    }
+
+    public void clearAttachments() {
+        attachmentList.clear();
+        attachmentNames.setLength(0);
     }
 
     private String formatSize(int size) {

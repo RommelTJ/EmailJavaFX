@@ -3,18 +3,20 @@ package com.rommelrico.controller;
 import com.rommelrico.controller.services.CreateAndRegisterEmailAccountService;
 import com.rommelrico.controller.services.FolderUpdaterService;
 import com.rommelrico.controller.services.MessageRendererService;
+import com.rommelrico.controller.services.SaveAttachmentsService;
 import com.rommelrico.model.EmailMessageBean;
 import com.rommelrico.model.folder.EmailFolderBean;
 import com.rommelrico.model.table.BoldableRowFactory;
 import com.rommelrico.view.ViewFactory;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TreeView;
@@ -52,7 +54,17 @@ public class MainController extends AbstractController implements Initializable 
     @FXML
     void button1Action(ActionEvent event) { }
 
+    @FXML
+    private Label downAttachLabel;
+
+    @FXML
+    private ProgressBar downAttachProgress;
+
+    @FXML
+    private Button downAttachBtn;
+
     private MessageRendererService messageRendererService;
+    private SaveAttachmentsService saveAttachmentsService;
 
     public MainController(ModelAccess modelAccess) {
         super(modelAccess);
@@ -60,7 +72,11 @@ public class MainController extends AbstractController implements Initializable 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        downAttachProgress.setVisible(false);
+        downAttachLabel.setVisible(false);
+        saveAttachmentsService = new SaveAttachmentsService(downAttachProgress, downAttachLabel);
         messageRendererService = new MessageRendererService(messageRendererId.getEngine());
+        downAttachProgress.progressProperty().bind(saveAttachmentsService.progressProperty());
 
         FolderUpdaterService folderUpdaterService = new FolderUpdaterService(getModelAccess().getFolderList());
         folderUpdaterService.start();
@@ -151,6 +167,15 @@ public class MainController extends AbstractController implements Initializable 
                     selectedFolder.decreaseUnreadMessagesCount();
                 }
             }
+        }
+    }
+
+    @FXML
+    void downAttachBtnAction(ActionEvent event) {
+        EmailMessageBean message = emailTableView.getSelectionModel().getSelectedItem();
+        if (message != null && message.hasAttachments()) {
+            saveAttachmentsService.setMessage(message);
+            saveAttachmentsService.restart();
         }
     }
 
