@@ -76,6 +76,7 @@ public class MainController extends AbstractController implements Initializable 
         downAttachLabel.setVisible(false);
         saveAttachmentsService = new SaveAttachmentsService(downAttachProgress, downAttachLabel);
         messageRendererService = new MessageRendererService(messageRendererId.getEngine());
+        downAttachProgress.progressProperty().bind(saveAttachmentsService.progressProperty());
 
         FolderUpdaterService folderUpdaterService = new FolderUpdaterService(getModelAccess().getFolderList());
         folderUpdaterService.start();

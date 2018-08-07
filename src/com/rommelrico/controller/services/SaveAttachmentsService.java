@@ -39,6 +39,7 @@ public class SaveAttachmentsService extends Service<Void> {
             @Override
             protected Void call() throws Exception {
                 for (MimeBodyPart mbp : message.getAttachmentList()) {
+                    updateProgress(message.getAttachmentList().indexOf(mbp), message.getAttachmentList().size());
                     mbp.saveFile(LOCATION_OF_DOWNLOADS + mbp.getFileName());
                 }
                 return null;
