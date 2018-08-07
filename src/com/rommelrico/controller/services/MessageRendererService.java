@@ -65,7 +65,9 @@ public class MessageRendererService extends Service<Void> {
                         if (sb.length()== 0) {
                             sb.append(bp.getContent().toString());
                         }
-                    } else if (contentType.toLowerCase().contains("application")) {
+                    } else if (contentType.toLowerCase().contains("application")
+                            || contentType.toLowerCase().contains("image")
+                            || contentType.toLowerCase().contains("audio")) {
                         MimeBodyPart mbp = (MimeBodyPart)bp;
                         messageToRender.addAttachment(mbp);
                         // Sometimes the text content of the message is encapsulated in another multipart,
