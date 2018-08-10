@@ -18,12 +18,15 @@ public class ViewFactory {
     private final String EMAIL_DETAILS_FXML = "EmailDetailsLayout.fxml";
     private final String COMPOSE_SCREEN_FXML = "ComposeMessageLayout.fxml";
 
+    private MainController mainController;
+    private EmailDetailsController emailDetailsController;
+
     public static ViewFactory defaultFactory = new ViewFactory();
     private static boolean mainViewInitialized = false;
 
     public Scene getMainScene() throws OperationNotSupportedException {
         if (!mainViewInitialized) {
-            AbstractController mainController = new MainController(modelAccess);
+            mainController = new MainController(modelAccess);
             mainViewInitialized = true;
             return initializeScene(MAIN_SCREEN_FXML, mainController);
         } else {
@@ -32,7 +35,7 @@ public class ViewFactory {
     }
 
     public Scene getEmailDetailsScene() {
-        AbstractController emailDetailsController = new EmailDetailsController(modelAccess);
+        emailDetailsController = new EmailDetailsController(modelAccess);
         return initializeScene(EMAIL_DETAILS_FXML, emailDetailsController);
     }
 

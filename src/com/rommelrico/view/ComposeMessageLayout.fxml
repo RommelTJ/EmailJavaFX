@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.web.HTMLEditor?>
 
-<AnchorPane prefHeight="435.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.rommelrico.controller.ComposeMessageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="732.0" prefWidth="641.0" xmlns="http://javafx.com/javafx/8.0.151" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="15.0" layoutY="22.0" text="From:" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="22.0" />
       <Label layoutX="7.0" layoutY="58.0" text="To:" AnchorPane.leftAnchor="7.0" AnchorPane.topAnchor="58.0" />
