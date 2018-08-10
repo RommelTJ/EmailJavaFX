@@ -50,7 +50,6 @@ public class MessageRendererService extends Service<Void> {
                     || messageType.contains("TEXT/PLAIN")
                     || messageType.contains("text")) {
                 sb.append(message.getContent().toString());
-
             } else if (messageType.contains("multipart")) {
                 Multipart mp = (Multipart) message.getContent();
                 for (int i = mp.getCount() - 1; i >= 0; i--) {
@@ -68,13 +67,13 @@ public class MessageRendererService extends Service<Void> {
                     } else if (contentType.toLowerCase().contains("application")
                             || contentType.toLowerCase().contains("image")
                             || contentType.toLowerCase().contains("audio")) {
-                        MimeBodyPart mbp = (MimeBodyPart)bp;
+                        MimeBodyPart mbp = (MimeBodyPart) bp;
                         messageToRender.addAttachment(mbp);
                         // Sometimes the text content of the message is encapsulated in another multipart,
                         // so we have to iterate again through it.
                     } else if (bp.getContentType().contains("multipart")) {
-                        Multipart mp2 = (Multipart)bp.getContent();
-                        for (int j = mp2.getCount()-1; j >= 0; j--) {
+                        Multipart mp2 = (Multipart) bp.getContent();
+                        for (int j = mp2.getCount() - 1; j >= 0; j--) {
                             BodyPart bp2 = mp2.getBodyPart(i);
                             if ((bp2.getContentType().contains("TEXT/HTML")
                                     || bp2.getContentType().contains("TEXT/PLAIN"))) {
@@ -85,6 +84,7 @@ public class MessageRendererService extends Service<Void> {
                 }
             }
         } catch (MessagingException | IOException e) {
+            System.out.println("Exception while vizualizing message: ");
             e.printStackTrace();
         }
     }

@@ -162,7 +162,7 @@ public class MainController extends AbstractController implements Initializable 
     void downAttachBtnAction(ActionEvent event) {
         EmailMessageBean message = emailTableView.getSelectionModel().getSelectedItem();
         if (message != null && message.hasAttachments()) {
-            saveAttachmentsService.setMessage(message);
+            saveAttachmentsService.setMessageToDownload(message);
             saveAttachmentsService.restart();
         }
     }

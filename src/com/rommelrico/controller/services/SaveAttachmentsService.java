@@ -11,7 +11,7 @@ import javax.mail.internet.MimeBodyPart;
 public class SaveAttachmentsService extends Service<Void> {
 
     private String LOCATION_OF_DOWNLOADS = System.getProperty("user.home") + "/Downloads/";
-    private EmailMessageBean message;
+    private EmailMessageBean messageToDownload;
     private ProgressBar progress;
     private Label label;
 
@@ -29,18 +29,23 @@ public class SaveAttachmentsService extends Service<Void> {
     }
 
     // Always call before starting.
-    public void setMessage(EmailMessageBean message) {
-        this.message = message;
+    public void setMessageToDownload(EmailMessageBean messageToDownload) {
+        this.messageToDownload = messageToDownload;
     }
 
     @Override
     protected Task<Void> createTask() {
-        return new Task<Void>() {
+        return new Task<Void>(){
             @Override
             protected Void call() throws Exception {
-                for (MimeBodyPart mbp : message.getAttachmentList()) {
-                    updateProgress(message.getAttachmentList().indexOf(mbp), message.getAttachmentList().size());
-                    mbp.saveFile(LOCATION_OF_DOWNLOADS + mbp.getFileName());
+                try {
+                    for(MimeBodyPart mbp: messageToDownload.getAttachmentList()){
+                        updateProgress(messageToDownload.getAttachmentList().indexOf(mbp),
+                                messageToDownload.getAttachmentList().size());
+                        mbp.saveFile(LOCATION_OF_DOWNLOADS + mbp.getFileName());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 return null;
             }
