@@ -67,4 +67,8 @@ public class EmailAccountBean {
         return loginState;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
 } // end EmailAccountBean
