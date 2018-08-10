@@ -5,11 +5,18 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
 
+import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ComposeMessageController extends AbstractController implements Initializable {
+
+    private List<File> attachments = new ArrayList<>();
+
 
     @FXML
     private Label attachmentsLabel;
@@ -28,6 +35,12 @@ public class ComposeMessageController extends AbstractController implements Init
 
     @FXML
     void attchBtnAction() {
+        FileChooser fileChooser = new FileChooser();
+        File selectedFile = fileChooser.showOpenDialog(null);
+        if (selectedFile != null) {
+            attachments.add(selectedFile);
+            attachmentsLabel.setText(attachmentsLabel.getText() + selectedFile.getName() + "; ");
+        }
 
     }
 
