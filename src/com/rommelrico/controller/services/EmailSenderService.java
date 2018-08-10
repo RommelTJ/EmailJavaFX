@@ -1,6 +1,7 @@
 package com.rommelrico.controller.services;
 
 import com.rommelrico.model.EmailAccountBean;
+import com.rommelrico.model.EmailConstants;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
@@ -70,10 +71,12 @@ public class EmailSenderService extends Service<Integer> {
                             emailAccountBean.getPassword());
                     transport.sendMessage(message, message.getAllRecipients());
                     transport.close();
+                    result = EmailConstants.MESSAGE_SENT_OK;
                 } catch (Exception e) {
-                    e.getStackTrace();
+                    e.printStackTrace();
+                    result = EmailConstants.MESSAGE_SENT_ERROR;
                 }
-                return null;
+                return result;
             }
         };
     }
