@@ -2,7 +2,7 @@ package com.rommelrico.model.table;
 
 import java.util.Comparator;
 
-public class FormattableInteger implements Comparator<FormattableInteger> {
+public class FormattableInteger implements Comparable<FormattableInteger> {
 
     private int size;
 
@@ -11,9 +11,9 @@ public class FormattableInteger implements Comparator<FormattableInteger> {
     }
 
     @Override
-    public int compare(FormattableInteger o1, FormattableInteger o2) {
-        Integer int1 = o1.size;
-        Integer int2 = o2.size;
+    public int compareTo(FormattableInteger o) {
+        Integer int1 = this.size;
+        Integer int2 = o.size;
         return int1.compareTo(int2);
     }
 
