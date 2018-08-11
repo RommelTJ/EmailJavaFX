@@ -15,7 +15,7 @@ import java.util.Map;
 public class ModelAccess {
 
     private Map<String, EmailAccountBean> emailAccounts = new HashMap<>();
-    private ObservableList<String> emailAccountsNames = FXCollections.observableArrayList();
+    private ObservableList<String> emailAccountNames = FXCollections.observableArrayList();
 
     private EmailMessageBean selectedMessage;
     private EmailFolderBean<String> selectedFolder;
@@ -45,8 +45,8 @@ public class ModelAccess {
         folderList.add(folder);
     }
 
-    public ObservableList<String> getEmailAccountsNames() {
-        return emailAccountsNames;
+    public ObservableList<String> getEmailAccountNames() {
+        return emailAccountNames;
     }
 
     public EmailAccountBean getEmailAccountByName(String name) {
@@ -55,7 +55,7 @@ public class ModelAccess {
 
     public void addAccount(EmailAccountBean account) {
         emailAccounts.put(account.getEmailAddress(), account);
-        emailAccountsNames.add(account.getEmailAddress());
+        emailAccountNames.add(account.getEmailAddress());
     }
-    
+
 }
