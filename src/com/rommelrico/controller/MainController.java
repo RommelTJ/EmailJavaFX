@@ -52,7 +52,12 @@ public class MainController extends AbstractController implements Initializable 
     private TableColumn<EmailMessageBean, String> sizeCol;
 
     @FXML
-    void button1Action(ActionEvent event) { }
+    void button1Action() {
+        Scene scene = ViewFactory.defaultFactory.getComposeMessageScene();
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
+    }
 
     @FXML
     private Label downAttachLabel;
@@ -84,9 +89,9 @@ public class MainController extends AbstractController implements Initializable 
         emailTableView.setRowFactory(e -> new BoldableRowFactory<>());
         ViewFactory viewFactory = ViewFactory.defaultFactory;
 
-        subjectCol.setCellValueFactory(new PropertyValueFactory<EmailMessageBean, String>("subject"));
-        senderCol.setCellValueFactory(new PropertyValueFactory<EmailMessageBean, String>("sender"));
-        sizeCol.setCellValueFactory(new PropertyValueFactory<EmailMessageBean, String>("size"));
+        subjectCol.setCellValueFactory(new PropertyValueFactory<>("subject"));
+        senderCol.setCellValueFactory(new PropertyValueFactory<>("sender"));
+        sizeCol.setCellValueFactory(new PropertyValueFactory<>("size"));
 
         sizeCol.setComparator(new Comparator<String>() {
 
@@ -154,27 +159,10 @@ public class MainController extends AbstractController implements Initializable 
     }
 
     @FXML
-    void changeReadAction(ActionEvent event) {
-        EmailMessageBean messageBean = getModelAccess().getSelectedMessage();
-        if (messageBean != null) {
-            boolean value = messageBean.isRead();
-            messageBean.setRead(!value);
-            EmailFolderBean<String> selectedFolder = getModelAccess().getSelectedFolder();
-            if (selectedFolder != null) {
-                if (value) {
-                    selectedFolder.incrementUnreadMessagesCount(1);
-                } else {
-                    selectedFolder.decreaseUnreadMessagesCount();
-                }
-            }
-        }
-    }
-
-    @FXML
     void downAttachBtnAction(ActionEvent event) {
         EmailMessageBean message = emailTableView.getSelectionModel().getSelectedItem();
         if (message != null && message.hasAttachments()) {
-            saveAttachmentsService.setMessage(message);
+            saveAttachmentsService.setMessageToDownload(message);
             saveAttachmentsService.restart();
         }
     }

@@ -7,6 +7,7 @@ import java.util.Properties;
 
 public class EmailAccountBean {
 
+    private String emailAccountName;
     private String emailAddress;
     private String password;
     private Properties properties;
@@ -16,8 +17,9 @@ public class EmailAccountBean {
     private int loginState = EmailConstants.LOGIN_STATE_NOT_READY;
 
     // Constructor
-    public EmailAccountBean(String emailAddress, String password) {
+    public EmailAccountBean(String emailAddress, String emailAccountName, String password) {
         this.emailAddress = emailAddress;
+        this.emailAccountName = emailAccountName;
         this.password = password;
 
         properties = new Properties();
@@ -39,7 +41,7 @@ public class EmailAccountBean {
         session = Session.getInstance(properties, auth);
         try {
             this.store = session.getStore();
-            store.connect(properties.getProperty("incomingHost"), emailAddress, password);
+            store.connect(properties.getProperty("incomingHost"), emailAccountName, password);
             loginState = EmailConstants.LOGIN_STATE_SUCCEEDED;
         } catch (Exception e) {
             e.printStackTrace();
@@ -49,6 +51,10 @@ public class EmailAccountBean {
 
     public String getEmailAddress() {
         return emailAddress;
+    }
+
+    public String getEmailAccountName() {
+        return emailAccountName;
     }
 
     public Properties getProperties() {
@@ -65,6 +71,10 @@ public class EmailAccountBean {
 
     public int getLoginState() {
         return loginState;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
 } // end EmailAccountBean

@@ -1,13 +1,21 @@
 package com.rommelrico.controller;
 
+import com.rommelrico.model.EmailAccountBean;
 import com.rommelrico.model.EmailMessageBean;
 import com.rommelrico.model.folder.EmailFolderBean;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import javax.mail.Folder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ModelAccess {
+
+    private Map<String, EmailAccountBean> emailAccounts = new HashMap<>();
+    private ObservableList<String> emailAccountNames = FXCollections.observableArrayList();
 
     private EmailMessageBean selectedMessage;
     private EmailFolderBean<String> selectedFolder;
@@ -36,4 +44,18 @@ public class ModelAccess {
     public void addFolder(Folder folder) {
         folderList.add(folder);
     }
+
+    public ObservableList<String> getEmailAccountNames() {
+        return emailAccountNames;
+    }
+
+    public EmailAccountBean getEmailAccountByName(String name) {
+        return emailAccounts.get(name);
+    }
+
+    public void addAccount(EmailAccountBean account) {
+        emailAccounts.put(account.getEmailAddress(), account);
+        emailAccountNames.add(account.getEmailAddress());
+    }
+
 }

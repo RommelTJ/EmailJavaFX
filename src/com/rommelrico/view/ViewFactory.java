@@ -1,9 +1,6 @@
 package com.rommelrico.view;
 
-import com.rommelrico.controller.AbstractController;
-import com.rommelrico.controller.EmailDetailsController;
-import com.rommelrico.controller.MainController;
-import com.rommelrico.controller.ModelAccess;
+import com.rommelrico.controller.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -15,12 +12,14 @@ import javax.naming.OperationNotSupportedException;
 public class ViewFactory {
 
     private ModelAccess modelAccess = new ModelAccess();
-    private MainController mainController;
-    private EmailDetailsController emailDetailsController;
 
     private final String DEFAULT_CSS = "style.css";
     private final String MAIN_SCREEN_FXML = "MainLayout.fxml";
     private final String EMAIL_DETAILS_FXML = "EmailDetailsLayout.fxml";
+    private final String COMPOSE_SCREEN_FXML = "ComposeMessageLayout.fxml";
+
+    private MainController mainController;
+    private EmailDetailsController emailDetailsController;
 
     public static ViewFactory defaultFactory = new ViewFactory();
     private static boolean mainViewInitialized = false;
@@ -38,6 +37,11 @@ public class ViewFactory {
     public Scene getEmailDetailsScene() {
         emailDetailsController = new EmailDetailsController(modelAccess);
         return initializeScene(EMAIL_DETAILS_FXML, emailDetailsController);
+    }
+
+    public Scene getComposeMessageScene() {
+        AbstractController composeController = new ComposeMessageController(modelAccess);
+        return initializeScene(COMPOSE_SCREEN_FXML, composeController);
     }
 
     public Node resolveIcon(String treeItemValue) {
