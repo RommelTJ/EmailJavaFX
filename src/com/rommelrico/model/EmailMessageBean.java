@@ -1,33 +1,34 @@
 package com.rommelrico.model;
 
 import com.rommelrico.model.table.AbstractTableItem;
+import com.rommelrico.model.table.FormattableInteger;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeBodyPart;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class EmailMessageBean extends AbstractTableItem {
 
     private SimpleStringProperty sender;
     private SimpleObjectProperty<Date> date;
     private SimpleStringProperty subject;
-    private SimpleStringProperty size;
+    private SimpleObjectProperty<FormattableInteger> size;
     private Message messageReference;
 
     // Attachment properties
     private List<MimeBodyPart> attachmentList = new ArrayList<MimeBodyPart>();
     private StringBuffer attachmentNames = new StringBuffer();
 
-    public static Map<String, Integer> formattedValues = new HashMap<String, Integer>();
-
     public EmailMessageBean(String Subject, String Sender, int size, Date date, Message messageReference, boolean isRead) {
         super(isRead);
         this.subject = new SimpleStringProperty(Subject);
         this.sender = new SimpleStringProperty(Sender);
-        this.size = new SimpleStringProperty(formatSize(size));
+        this.size = new SimpleObjectProperty<>(new FormattableInteger(size));
         this.date = new SimpleObjectProperty<>(date);
         this.messageReference = messageReference;
     }
@@ -48,12 +49,8 @@ public class EmailMessageBean extends AbstractTableItem {
         return subject;
     }
 
-    public String getSize() {
+    public FormattableInteger getSize() {
         return size.get();
-    }
-
-    public SimpleStringProperty sizeProperty() {
-        return size;
     }
 
     public Message getMessageReference() {
@@ -92,24 +89,6 @@ public class EmailMessageBean extends AbstractTableItem {
     public void clearAttachments() {
         attachmentList.clear();
         attachmentNames.setLength(0);
-    }
-
-    private String formatSize(int size) {
-        String returnValue;
-
-        if (size <= 0) {
-            returnValue = "0";
-        } else if (size < 1024) {
-            returnValue = size + " B";
-        } else if (size < 1048576) {
-            returnValue = size/1024 + " kB";
-        } else {
-            returnValue = size/1048576 + " MB";
-        }
-
-        formattedValues.put(returnValue, size);
-
-        return returnValue;
     }
 
     @Override

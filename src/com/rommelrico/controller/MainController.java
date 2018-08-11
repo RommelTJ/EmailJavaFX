@@ -7,6 +7,7 @@ import com.rommelrico.controller.services.SaveAttachmentsService;
 import com.rommelrico.model.EmailMessageBean;
 import com.rommelrico.model.folder.EmailFolderBean;
 import com.rommelrico.model.table.BoldableRowFactory;
+import com.rommelrico.model.table.FormattableInteger;
 import com.rommelrico.view.ViewFactory;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -50,7 +51,7 @@ public class MainController extends AbstractController implements Initializable 
     private TableColumn<EmailMessageBean, String> senderCol;
 
     @FXML
-    private TableColumn<EmailMessageBean, String> sizeCol;
+    private TableColumn<EmailMessageBean, FormattableInteger> sizeCol;
 
     @FXML
     private TableColumn<EmailMessageBean, Date> dateCol;
@@ -97,19 +98,6 @@ public class MainController extends AbstractController implements Initializable 
         senderCol.setCellValueFactory(new PropertyValueFactory<>("sender"));
         sizeCol.setCellValueFactory(new PropertyValueFactory<>("size"));
         dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
-
-        sizeCol.setComparator(new Comparator<String>() {
-
-            Integer int1;
-            Integer int2;
-
-            @Override
-            public int compare(String o1, String o2) {
-                int1 = EmailMessageBean.formattedValues.get(o1);
-                int2 = EmailMessageBean.formattedValues.get(o2);
-                return int1.compareTo(int2);
-            }
-        });
 
         EmailFolderBean<String> root = new EmailFolderBean<>("");
         emailFoldersTree.setRoot(root);
