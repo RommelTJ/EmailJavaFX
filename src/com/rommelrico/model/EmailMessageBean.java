@@ -1,19 +1,18 @@
 package com.rommelrico.model;
 
 import com.rommelrico.model.table.AbstractTableItem;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeBodyPart;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class EmailMessageBean extends AbstractTableItem {
 
     private SimpleStringProperty sender;
+    private SimpleObjectProperty<Date> date;
     private SimpleStringProperty subject;
     private SimpleStringProperty size;
     private Message messageReference;
@@ -24,11 +23,12 @@ public class EmailMessageBean extends AbstractTableItem {
 
     public static Map<String, Integer> formattedValues = new HashMap<String, Integer>();
 
-    public EmailMessageBean(String Subject, String Sender, int size, Message messageReference, boolean isRead) {
+    public EmailMessageBean(String Subject, String Sender, int size, Date date, Message messageReference, boolean isRead) {
         super(isRead);
         this.subject = new SimpleStringProperty(Subject);
         this.sender = new SimpleStringProperty(Sender);
         this.size = new SimpleStringProperty(formatSize(size));
+        this.date = new SimpleObjectProperty<>(date);
         this.messageReference = messageReference;
     }
 
@@ -66,6 +66,14 @@ public class EmailMessageBean extends AbstractTableItem {
 
     public String getAttachmentNames() {
         return attachmentNames.toString();
+    }
+
+    public Date getDate() {
+        return date.get();
+    }
+
+    public SimpleObjectProperty<Date> dateProperty() {
+        return date;
     }
 
     public void addAttachment(MimeBodyPart mbp) {
