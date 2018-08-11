@@ -25,6 +25,7 @@ import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import java.net.URL;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class MainController extends AbstractController implements Initializable {
@@ -50,6 +51,9 @@ public class MainController extends AbstractController implements Initializable 
 
     @FXML
     private TableColumn<EmailMessageBean, String> sizeCol;
+
+    @FXML
+    private TableColumn<EmailMessageBean, Date> dateCol;
 
     @FXML
     void button1Action() {
@@ -92,6 +96,7 @@ public class MainController extends AbstractController implements Initializable 
         subjectCol.setCellValueFactory(new PropertyValueFactory<>("subject"));
         senderCol.setCellValueFactory(new PropertyValueFactory<>("sender"));
         sizeCol.setCellValueFactory(new PropertyValueFactory<>("size"));
+        dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
 
         sizeCol.setComparator(new Comparator<String>() {
 
