@@ -32,7 +32,7 @@ public class CreateAndRegisterEmailAccountService extends Service<Integer> {
         return new Task<Integer>() {
             @Override
             protected Integer call() throws Exception {
-                EmailAccountBean emailAccountBean = new EmailAccountBean(emailAccountName, emailAccountPassword);
+                EmailAccountBean emailAccountBean = new EmailAccountBean(emailAddress, emailAccountName, emailAccountPassword);
                 if (emailAccountBean.getLoginState() == EmailConstants.LOGIN_STATE_SUCCEEDED) {
                     modelAccess.addAccount(emailAccountBean);
                     EmailFolderBean<String> emailFolderBean = new EmailFolderBean<>(emailAddress);

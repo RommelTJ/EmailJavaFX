@@ -67,7 +67,7 @@ public class EmailSenderService extends Service<Integer> {
                     // Send Message
                     Transport transport = session.getTransport();
                     transport.connect(emailAccountBean.getProperties().getProperty("outgoingHost"),
-                            emailAccountBean.getEmailAddress(),
+                            emailAccountBean.getEmailAccountName(),
                             emailAccountBean.getPassword());
                     transport.sendMessage(message, message.getAllRecipients());
                     transport.close();
